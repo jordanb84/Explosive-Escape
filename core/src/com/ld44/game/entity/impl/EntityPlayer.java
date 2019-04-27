@@ -13,13 +13,18 @@ import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.EntityBoat;
 import com.ld44.game.map.Map;
+import com.ld44.game.ship.PlayerShip;
+import com.ld44.game.ship.impl.SingleCannonFrigateShip;
 
 public class EntityPlayer extends EntityBoat {
 
     private Sprite crosshair;
 
+    private PlayerShip playerShip;
+
     public EntityPlayer(Map map, Vector2 position) {
         super(map, position, 120, 150, 8, 50);
+        this.playerShip = new SingleCannonFrigateShip(map, this);
     }
 
     @Override
@@ -41,8 +46,7 @@ public class EntityPlayer extends EntityBoat {
             Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(mousePosition);
 
-            EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition().x, this.getPosition().y + this.getHeight() / 2), new Vector2(mousePosition.x, mousePosition.y), false);
-            this.getMap().spawnEntity(bullet);
+            this.playerShip.fire(new Vector2(mousePosition.x, mousePosition.y));
         }
 
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -90,6 +94,11 @@ public class EntityPlayer extends EntityBoat {
     public String[] getRipples() {
        // return new String[] {"entity/water_ripple_small_000.png", "entity/water_ripple_small_001.png", "entity/water_ripple_small_002.png", "entity/water_ripple_small_003.png", "entity/water_ripple_small_004.png"};
         return new String[] {"entity/water_ripple_small_000.png"};
+    }
+
+    public void setPlayerShip(PlayerShip playerShip) {
+        this.setAnimation(playerShip.getAnimation());
+        this.playerShip = playerShip;
     }
 
 }

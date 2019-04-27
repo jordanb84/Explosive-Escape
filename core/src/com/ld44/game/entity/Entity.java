@@ -153,4 +153,8 @@ public abstract class Entity {
 
     }
 
+    public void setAnimation(DirectionalAnimation animation) {
+        this.animation = animation;
+    }
+
 }

@@ -118,4 +118,12 @@ public class Hud {
         this.flash = true;
     }
 
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+
+    public int getCash() {
+        return cash;
+    }
+
 }

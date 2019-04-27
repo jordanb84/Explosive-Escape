@@ -18,7 +18,9 @@ public abstract class UiContainer {
 
     private StateManager stateManager;
 
-    public UiContainer(Skin defaultSkin, StateManager stateManager) {
+    private Hud hud;
+
+    public UiContainer(Hud hud, Skin defaultSkin, StateManager stateManager) {
         this.defaultSkin = defaultSkin;
 
         this.rootTable = new Table();
@@ -27,6 +29,8 @@ public abstract class UiContainer {
         this.stateManager = stateManager;
 
         this.rootStage = new Stage();
+
+        this.hud = hud;
 
         this.create();
 
@@ -65,6 +69,10 @@ public abstract class UiContainer {
 
     public StateManager getStateManager() {
         return stateManager;
+    }
+
+    public Hud getHud() {
+        return hud;
     }
 
 }

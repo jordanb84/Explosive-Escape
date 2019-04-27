@@ -44,7 +44,7 @@ public class StateTest extends State {
         this.map = new Map(tileLayers, mapDefinition, entities);
 
         this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(100, 100)));
-        this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(100, 100)));
+        this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(150, 150)));
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
     }

@@ -21,9 +21,10 @@ public class EntityBullet extends Entity {
     private boolean enemy;
 
     public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy) {
-        super(map, position, 80);
+        super(map, position, 160);
         this.destination = destination;
         this.destinationBody = new Rectangle(this.destination.x, this.destination.y, 0, 0);
+        this.enemy = enemy;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class EntityBullet extends Entity {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityPlayer) {
                     if(entity.getBody().overlaps(this.getBody())) {
-                        entity.setHealth(entity.getHealth() - 0.1f);
+                        entity.setHealth(entity.getHealth() - 0.01f);
                         this.getMap().despawnEntity(this);
                     }
                 }

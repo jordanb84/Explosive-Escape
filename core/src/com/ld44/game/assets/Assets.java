@@ -35,6 +35,7 @@ public class Assets {
         this.loadTexture("tile/water5.png");
 
         this.loadDirectory("explosion/small");
+        this.loadDirectory("crosshair");
 
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 

@@ -66,4 +66,8 @@ public class Map {
         return entities;
     }
 
+    public MapDefinition getMapDefinition() {
+        return mapDefinition;
+    }
+
 }

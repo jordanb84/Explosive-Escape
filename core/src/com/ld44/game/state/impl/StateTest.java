@@ -48,6 +48,8 @@ public class StateTest extends State {
         this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(centerX + 50, centerY - 50)));
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
+
+        this.spawnEnemies();
     }
 
     @Override
@@ -64,6 +66,33 @@ public class StateTest extends State {
 
     @Override
     public void resize(int width, int height) {
+
+    }
+
+    public void spawnEnemies() {
+        int chunkWidth = 512;
+        int chunkHeight = 512;
+
+        int mapPixelWidth = map.getMapDefinition().getMapWidth() * map.getMapDefinition().getTileWidth();
+        int mapPixelHeight = map.getMapDefinition().getMapHeight() * map.getMapDefinition().getTileHeight();
+
+        int rows = mapPixelHeight / chunkHeight;
+        int columns = mapPixelWidth / chunkWidth;
+
+        int enemySpacingWidth = 64;
+        int enemySpacingHeight = 64;
+
+        for(int chunkRow = 0; chunkRow < rows; chunkRow++) {
+            for(int chunk = 0; chunk < columns; chunk++) {
+                Vector2 chunkPosition = new Vector2(chunk * chunkWidth, chunkRow * chunkHeight);
+
+                for(int enemiesSpawned = 0; enemiesSpawned < 2; enemiesSpawned++) {
+                    Vector2 position = new Vector2(chunkPosition.x + enemySpacingWidth * enemiesSpawned, chunkPosition.y + (enemySpacingHeight / 2) * enemiesSpawned);
+                    EntityBasicEnemy entityBasicEnemy = new EntityBasicEnemy(this.map, position);
+                    this.map.spawnEntity(entityBasicEnemy);
+                }
+            }
+        }
 
     }
 

@@ -41,7 +41,7 @@ public class EntityExplosion extends Entity {
             this.getMap().despawnEntity(this);
         }
 
-       // this.getPosition().add(this.hitEntity.getLastMovement().x, this.hitEntity.getLastMovement().y);
+        this.getPosition().add(this.hitEntity.getLastMovement().x, this.hitEntity.getLastMovement().y);
     }
 
     @Override

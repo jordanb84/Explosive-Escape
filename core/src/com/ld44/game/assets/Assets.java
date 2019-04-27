@@ -30,6 +30,9 @@ public class Assets {
         this.loadTextures("entity/player.png", "entity/player_small.png");
         this.loadTextures("entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
         this.loadTextures("entity/small_double_0.png", "entity/small_double_1.png", "entity/small_double_2.png", "entity/small_double_3.png", "entity/small_double_4.png");
+
+        this.loadTextures("entity/medium_double_0.png", "entity/medium_double_1.png", "entity/medium_double_2.png", "entity/medium_double_3.png", "entity/medium_double_4.png");
+
         this.loadTexture("entity/enemy_small.png");
         this.loadTexture("entity/basicBullet.png");
         this.loadTexture("radar.png");

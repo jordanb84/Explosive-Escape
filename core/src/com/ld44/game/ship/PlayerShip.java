@@ -22,6 +22,7 @@ public abstract class PlayerShip {
         this.map = map;
         this.player = player;
         this.animation = this.createAnimation();
+        this.player.setHealth(1);
     }
 
     public void fire(Vector2 destination) {
@@ -45,5 +46,7 @@ public abstract class PlayerShip {
     public DirectionalAnimation getAnimation() {
         return animation;
     }
+
+    public abstract float modifyDamage(float damage);
 
 }

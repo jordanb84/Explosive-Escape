@@ -104,6 +104,7 @@ public class Hud {
 
         this.textSprite.setPosition(10, 10);
         this.textSprite.draw(batch);
+        this.mediumFont.draw(batch, "Store", this.textSprite.getX() + this.textSprite.getWidth() / 6 + 22, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 5);
 
         batch.setProjectionMatrix(camera.combined);
     }

@@ -47,4 +47,9 @@ public class DoubleCannonFrigateShip extends PlayerShip {
         return directionalAnimation;
     }
 
+    @Override
+    public float modifyDamage(float damage) {
+        return damage;
+    }
+
 }

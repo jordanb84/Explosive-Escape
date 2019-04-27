@@ -29,7 +29,7 @@ public class EntityBasicEnemy extends EntityEnemy {
     public DirectionalAnimation createAnimation() {
         Animation baseAnimation = new Animation();
 
-        baseAnimation.addFrames(1, "entity/player.png");
+        baseAnimation.addFrames(0.08f, "entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
 
         DirectionalAnimation directionalAnimation = new DirectionalAnimation();
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);
@@ -39,6 +39,11 @@ public class EntityBasicEnemy extends EntityEnemy {
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.NONE);
 
         return directionalAnimation;
+    }
+
+    @Override
+    public String[] getRipples() {
+        return new String[] {"entity/water_ripple_small_000.png", "entity/water_ripple_small_001.png", "entity/water_ripple_small_002.png", "entity/water_ripple_small_003.png", "entity/water_ripple_small_004.png"};
     }
 
 }

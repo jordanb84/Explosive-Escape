@@ -26,17 +26,26 @@ public class MapLayer {
     }
 
     public void render(SpriteBatch batch) {
+        this.render(batch, 1, 1, new Vector2(0, 0));
+    }
+
+    public void render(SpriteBatch batch, float scale, float alpha, Vector2 offset) {
         int index = 0;
         for(int row = 0; row < this.mapDefinition.getMapHeight(); row++) {
             for(int rowTile = 0; rowTile < this.mapDefinition.getMapWidth(); rowTile++) {
                 Vector2 position = new Vector2(rowTile * this.mapDefinition.getTileWidth(), row * this.mapDefinition.getTileHeight());
-                //Tile tile = this.tiles.get(index).TILE;
 
-                //tile.render(batch, position);
+                position.set(position.x * scale, position.y * scale);
+                position.add(offset.x, offset.y);
 
                 TileType type = this.tiles.get(index);
+                //type.SPRITE.setPosition(position.x * scale + offset.x, position.y * scale + offset.y);
+                type.SPRITE.setScale(scale);
+                type.SPRITE.setAlpha(alpha);
                 type.SPRITE.setPosition(position.x, position.y);
                 type.SPRITE.draw(batch);
+                type.SPRITE.setScale(1);
+                type.SPRITE.setAlpha(1);
                 index++;
             }
         }

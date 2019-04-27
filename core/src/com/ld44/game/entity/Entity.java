@@ -140,4 +140,8 @@ public abstract class Entity {
         this.health = health;
     }
 
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
 }

@@ -21,12 +21,19 @@ public class Assets {
     }
 
     private void loadAssets() {
-        this.loadTexture("entity/player.png");
+        this.loadTextures("entity/player.png", "entity/player_small.png");
+        this.loadTextures("entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
+        this.loadTexture("entity/enemy_small.png");
         this.loadTexture("entity/basicBullet.png");
+        this.loadTexture("radar.png");
+        this.loadTexture("tile/water5.png");
 
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 
         this.loadTexture("editorBackground.png");
+        this.loadTexture("entity/test.png");
+
+        this.loadTextures("entity/water_ripple_small_000.png", "entity/water_ripple_small_001.png", "entity/water_ripple_small_002.png", "entity/water_ripple_small_003.png", "entity/water_ripple_small_004.png");
 
         this.assetManager.load("skin/holo/Holo-dark-hdpi.json", Skin.class);
 

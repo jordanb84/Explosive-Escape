@@ -14,6 +14,7 @@ import com.ld44.game.map.MapLayer;
 import com.ld44.game.state.State;
 import com.ld44.game.state.StateManager;
 import com.ld44.game.tile.TileType;
+import com.ld44.game.ui.MiniMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class StateTest extends State {
 
     private BitmapFont font;
 
+    private MiniMap miniMap;
+
     public StateTest(StateManager stateManager) {
         super(stateManager);
     }
@@ -31,7 +34,7 @@ public class StateTest extends State {
     @Override
     public void create() {
 
-        MapDefinition mapDefinition = new MapDefinition(160, 120, 16, 16, 1);
+        MapDefinition mapDefinition = new MapDefinition(20, 15, 512, 512, 1);
 
         List<MapLayer> tileLayers = new ArrayList<MapLayer>();
         tileLayers.add(new MapLayer(TileType.Water, mapDefinition));
@@ -50,18 +53,22 @@ public class StateTest extends State {
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
 
         this.spawnEnemies();
+
+        this.miniMap = new MiniMap(this.map);
     }
 
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         this.map.render(batch, camera);
         this.font.draw(batch, "heyy", 100, 100);
+
+       // this.miniMap.render(batch, camera);
     }
 
     @Override
     public void update(OrthographicCamera camera) {
         this.map.update(camera);
-
+        this.miniMap.update(camera);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.ld44.game.assets.Assets;
 
 public enum  TileType {
-    Air(), Grass(), Stone(), Water()
+    Air(), Grass(), Stone(), Water("tile/water5.png")
     ;
 
     TileType() {

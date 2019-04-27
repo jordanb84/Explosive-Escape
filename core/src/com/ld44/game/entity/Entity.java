@@ -26,12 +26,15 @@ public abstract class Entity {
 
     private Map map;
 
+    private float health;
+
     public Entity(Map map, Vector2 position, float speed) {
         this.position = position;
         this.speed = speed;
         this.animation = this.createAnimation();
         this.direction = Direction.UP;
         this.map = map;
+        this.health = 1;
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -41,6 +44,10 @@ public abstract class Entity {
     public void update(OrthographicCamera camera) {
         this.updateBody();
         this.getLastMovement().set(0, 0);
+
+        if(this.getHealth() <= 0) {
+            this.getMap().despawnEntity(this);
+        }
     }
 
     public void updateBody() {
@@ -123,6 +130,14 @@ public abstract class Entity {
 
     public Map getMap() {
         return map;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 
 }

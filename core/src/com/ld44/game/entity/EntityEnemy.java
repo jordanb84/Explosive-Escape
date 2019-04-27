@@ -26,7 +26,9 @@ public abstract class EntityEnemy extends EntityBoat {
 
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
-        super.render(batch, camera);
+        this.getActiveSprite().setAlpha(this.getHealth());
+        this.getActiveSprite().setPosition(this.getPosition().x, this.getPosition().y);
+        this.getActiveSprite().draw(batch);
     }
 
     @Override

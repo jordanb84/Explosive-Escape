@@ -9,6 +9,7 @@ import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.Entity;
+import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.map.Map;
 
 public class EntityBullet extends Entity {
@@ -17,7 +18,9 @@ public class EntityBullet extends Entity {
 
     private Rectangle destinationBody;
 
-    public EntityBullet(Map map, Vector2 position, Vector2 destination) {
+    private boolean enemy;
+
+    public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy) {
         super(map, position, 80);
         this.destination = destination;
         this.destinationBody = new Rectangle(this.destination.x, this.destination.y, 0, 0);
@@ -32,6 +35,26 @@ public class EntityBullet extends Entity {
     public void update(OrthographicCamera camera) {
         super.update(camera);
         this.moveTowardDestination();
+
+        if(enemy) {
+            for(Entity entity : this.getMap().getEntities()) {
+                if(entity instanceof EntityPlayer) {
+                    if(entity.getBody().overlaps(this.getBody())) {
+                        entity.setHealth(entity.getHealth() - 0.1f);
+                        this.getMap().despawnEntity(this);
+                    }
+                }
+            }
+        } else {
+            for(Entity entity : this.getMap().getEntities()) {
+                if(entity instanceof EntityEnemy) {
+                    if(entity.getBody().overlaps(this.getBody())) {
+                        entity.setHealth(entity.getHealth() - 0.1f);
+                        this.getMap().despawnEntity(this);
+                    }
+                }
+            }
+        }
 
         if(this.getBody().overlaps(this.destinationBody)) {
             this.getMap().despawnEntity(this);

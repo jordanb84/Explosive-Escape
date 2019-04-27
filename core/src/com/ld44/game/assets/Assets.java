@@ -37,6 +37,8 @@ public class Assets {
         this.loadDirectory("explosion/small");
         this.loadDirectory("crosshair");
 
+        this.loadTexture("ui/bar.png");
+
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 
         this.loadTexture("editorBackground.png");

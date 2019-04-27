@@ -14,6 +14,7 @@ import com.ld44.game.map.MapLayer;
 import com.ld44.game.state.State;
 import com.ld44.game.state.StateManager;
 import com.ld44.game.tile.TileType;
+import com.ld44.game.ui.Hud;
 import com.ld44.game.ui.MiniMap;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class StateTest extends State {
     private BitmapFont font;
 
     private MiniMap miniMap;
+
+    private Hud hud;
 
     public StateTest(StateManager stateManager) {
         super(stateManager);
@@ -47,20 +50,23 @@ public class StateTest extends State {
         int centerX = mapDefinition.getMapWidth() * mapDefinition.getTileWidth() / 2;
         int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
 
-        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(centerX, centerY)));
+        EntityPlayer player = new EntityPlayer(this.map, new Vector2(centerX, centerY));
+        this.map.spawnEntity(player);
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
 
         this.spawnEnemies();
 
         this.miniMap = new MiniMap(this.map);
+
+        this.hud = new Hud(this.map, player);
     }
 
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         this.map.render(batch, camera);
-        this.font.draw(batch, "heyy", 100, 100);
-
+        //this.font.draw(batch, "heyy", 100, 100);
+        this.hud.render(batch, camera);
        // this.miniMap.render(batch, camera);
     }
 
@@ -68,6 +74,7 @@ public class StateTest extends State {
     public void update(OrthographicCamera camera) {
         this.map.update(camera);
         this.miniMap.update(camera);
+        this.hud.update(camera);
     }
 
     @Override

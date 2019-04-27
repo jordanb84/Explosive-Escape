@@ -48,7 +48,6 @@ public class StateTest extends State {
         int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
 
         this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(centerX, centerY)));
-        this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(centerX + 50, centerY - 50)));
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
 

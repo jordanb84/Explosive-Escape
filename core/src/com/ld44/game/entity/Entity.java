@@ -144,4 +144,8 @@ public abstract class Entity {
         this.speed = speed;
     }
 
+    public void reset() {
+        this.health = 1;
+    }
+
 }

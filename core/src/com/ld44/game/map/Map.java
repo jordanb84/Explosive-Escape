@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
+import com.ld44.game.entity.EntityEnemy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,10 @@ public class Map {
         }
 
         this.entities.addAll(this.entitySpawnQueue);
-        this.entities.removeAll(this.entityDespawnQueue);
+
+        for(Entity entity : this.entityDespawnQueue) {
+            this.entities.remove(entity);
+        }
 
         this.entitySpawnQueue.clear();
         this.entityDespawnQueue.clear();

@@ -33,6 +33,8 @@ public abstract class EntityEnemy extends EntityBoat {
 
     private ShapeRenderer shapeRenderer;
 
+    private Vector2 spawnPosition;
+
     public EntityEnemy(Map map, Vector2 position, float speed, float maxSpeed, float speedAcceleration, float rotationSpeed) {
         super(map, position, speed, maxSpeed, speedAcceleration, rotationSpeed);
         this.changeInterval = 6;
@@ -43,6 +45,8 @@ public abstract class EntityEnemy extends EntityBoat {
 
         this.shapeRenderer = new ShapeRenderer();
         this.shapeRenderer.setAutoShapeType(true);
+
+        this.spawnPosition = new Vector2(position.x, position.y);
     }
 
     @Override
@@ -130,6 +134,16 @@ public abstract class EntityEnemy extends EntityBoat {
 
             this.changeDirection(this.targetDirection);
         }
+    }
+
+    public Vector2 getSpawnPosition() {
+        return spawnPosition;
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.getPosition().set(this.getSpawnPosition().x, this.getSpawnPosition().y);
     }
 
 }

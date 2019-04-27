@@ -35,6 +35,10 @@ public abstract class EntityBoat extends Entity {
     public void update(OrthographicCamera camera) {
         super.update(camera);
         this.applyVelocity();
+
+        if(this.getRotation() >= 360) {
+            this.setRotation(0);
+        }
     }
 
     public void applyVelocity() {
@@ -107,6 +111,23 @@ public abstract class EntityBoat extends Entity {
 
     public float getMaxSpeed() {
         return maxSpeed;
+    }
+
+    public void pointAt(Vector2 target) {
+        this.rotation = this.rotationToPoint(target);
+    }
+
+    public float rotationToPoint(Vector2 target) {
+        float pointRotation = 0;
+
+        Vector2 facing = new Vector2(target.x - this.getPosition().x, target.y - this.getPosition().y);
+
+        pointRotation = (float) Math.toDegrees((Math.atan2(facing.y, facing.x)));
+        pointRotation = pointRotation + (360 / 4);
+
+        pointRotation = pointRotation + 180;
+
+        return pointRotation;
     }
 
 }

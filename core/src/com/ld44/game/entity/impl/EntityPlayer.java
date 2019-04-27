@@ -15,7 +15,7 @@ import com.ld44.game.map.Map;
 public class EntityPlayer extends EntityBoat {
 
     public EntityPlayer(Map map, Vector2 position) {
-        super(map, position, 30, 60, 4, 50);
+        super(map, position, 70, 90, 4, 50);
     }
 
     @Override
@@ -32,6 +32,7 @@ public class EntityPlayer extends EntityBoat {
 
       //  System.out.println(this.getSpeed());
 
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(mousePosition);
@@ -39,6 +40,11 @@ public class EntityPlayer extends EntityBoat {
             EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(mousePosition.x, mousePosition.y), false);
             this.getMap().spawnEntity(bullet);
         }
+
+        Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePosition);
+
+        //this.pointAt(new Vector2(mousePosition.x, mousePosition.y));
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             this.changeDirection(Direction.UP);

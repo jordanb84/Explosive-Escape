@@ -56,7 +56,7 @@ public class EntityPlayer extends EntityBoat {
             this.changeDirection(Direction.LEFT);
         }
 
-        camera.position.add(this.getLastMovement().x, this.getLastMovement().y, 0);
+        camera.position.set(this.getPosition().x, this.getPosition().y, 0);
         camera.update();
     }
 

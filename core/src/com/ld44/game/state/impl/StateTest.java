@@ -31,20 +31,21 @@ public class StateTest extends State {
     @Override
     public void create() {
 
-        MapDefinition mapDefinition = new MapDefinition(40, 30, 16, 16, 3);
+        MapDefinition mapDefinition = new MapDefinition(160, 120, 16, 16, 1);
 
         List<MapLayer> tileLayers = new ArrayList<MapLayer>();
         tileLayers.add(new MapLayer(TileType.Water, mapDefinition));
-        tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
-        tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
         tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
 
         List<Entity> entities = new ArrayList<Entity>();
 
         this.map = new Map(tileLayers, mapDefinition, entities);
 
-        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(100, 100)));
-        this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(150, 150)));
+        int centerX = mapDefinition.getMapWidth() * mapDefinition.getTileWidth() / 2;
+        int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
+
+        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(centerX, centerY)));
+        this.map.spawnEntity(new EntityBasicEnemy(this.map, new Vector2(centerX + 50, centerY - 50)));
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
     }

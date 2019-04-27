@@ -8,6 +8,7 @@ import com.ld44.game.tile.TileType;
 public class MapExporter {
 
     public static void exportMapToFile(Map map, String path) {
+        System.out.println("Exporting map");
         String mapTileData = "";
 
         for(int mapTileLayerIndex = 0; mapTileLayerIndex < map.getTileLayers().size(); mapTileLayerIndex++) {
@@ -20,9 +21,13 @@ public class MapExporter {
             }
 
             mapTileData += "\n";
+
+            System.out.println("Layer " + mapTileLayerIndex);
         }
 
+        System.out.println("Writing");
         Gdx.files.local(path).writeString(mapTileData, false);
+        System.out.println("Wrote");
     }
 
 }

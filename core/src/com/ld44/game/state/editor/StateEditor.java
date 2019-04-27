@@ -52,12 +52,10 @@ public class StateEditor extends State {
 
     @Override
     public void create() {
-        MapDefinition mapDefinition = new MapDefinition(40, 30, 16, 16, 3);
+        MapDefinition mapDefinition = new MapDefinition(160, 120, 16, 16, 1);
 
         List<MapLayer> tileLayers = new ArrayList<MapLayer>();
-        tileLayers.add(new MapLayer(TileType.Grass, mapDefinition));
-        tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
-        tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
+        tileLayers.add(new MapLayer(TileType.Water, mapDefinition));
         tileLayers.add(new MapLayer(TileType.Air, mapDefinition));
 
         List<Entity> entities = new ArrayList<Entity>();

@@ -22,7 +22,7 @@ public class Game extends ApplicationAdapter {
 		this.batch = new SpriteBatch();
 
 		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.camera.setToOrtho(false, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2);
 
 		this.stateManager = new StateManager();
 

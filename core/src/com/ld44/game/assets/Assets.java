@@ -1,12 +1,18 @@
 package com.ld44.game.assets;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.ld44.game.animation.Frame;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Assets {
 
@@ -28,6 +34,8 @@ public class Assets {
         this.loadTexture("radar.png");
         this.loadTexture("tile/water5.png");
 
+        this.loadDirectory("explosion/small");
+
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 
         this.loadTexture("editorBackground.png");
@@ -39,7 +47,35 @@ public class Assets {
 
         this.assetManager.load("skin/arcade/arcade-ui.json", Skin.class);
 
+
         this.assetManager.finishLoading();
+    }
+
+    public void loadDirectory(String path) {
+        for(FileHandle file : Gdx.files.internal(path).list()) {
+            this.loadTexture(path + "/" + file.name());
+            System.out.println("Loaded " + path + "/" + file.name());
+        }
+    }
+
+    public List<Sprite> getDirectory(String path) {
+        List<Sprite> sprites = new ArrayList<Sprite>();
+
+        for(FileHandle file : Gdx.files.internal(path).list()) {
+            sprites.add(this.getSprite(path + "/" + file.name()));
+        }
+
+        return sprites;
+    }
+
+    public List<String> getDirectoryPaths(String path) {
+        List<String> sprites = new ArrayList<String>();
+
+        for(FileHandle file : Gdx.files.internal(path).list()) {
+            sprites.add(path + "/" + file.name());
+        }
+
+        return sprites;
     }
 
     public void loadTexture(String path) {

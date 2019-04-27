@@ -17,6 +17,8 @@ public class Animation {
 
     private float elapsedSinceFrameChange;
 
+    private boolean finished;
+
     public void render(SpriteBatch batch, Vector2 position) {
         this.getCurrentFrame().render(batch, position);
     }
@@ -45,6 +47,7 @@ public class Animation {
 
         if(this.currentFrame >= this.frames.size()) {
             this.currentFrame = 0;
+            this.finished = true;
         }
 
         this.elapsedSinceFrameChange = 0;
@@ -60,6 +63,14 @@ public class Animation {
 
     public float getCurrentHeight() {
         return this.getCurrentFrame().getSprite().getHeight();
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public List<Frame> getFrames() {
+        return frames;
     }
 
 }

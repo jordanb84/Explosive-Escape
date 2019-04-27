@@ -43,12 +43,17 @@ public class EntityBullet extends Entity {
         super.update(camera);
         this.moveTowardDestination();
 
+        boolean hit = false;
+
+        Entity hitEntity = null;
+
         if(enemy) {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityPlayer) {
                     if(entity.getBody().overlaps(this.getBody())) {
                         entity.setHealth(entity.getHealth() - 0.005f);
-                        this.getMap().despawnEntity(this);
+                        hit = true;
+                        hitEntity = entity;
                     }
                 }
             }
@@ -57,10 +62,18 @@ public class EntityBullet extends Entity {
                 if(entity instanceof EntityEnemy) {
                     if(entity.getBody().overlaps(this.getBody())) {
                         entity.setHealth(entity.getHealth() - 0.1f);
-                        this.getMap().despawnEntity(this);
+                        hit = true;
+                        hitEntity = entity;
                     }
                 }
             }
+        }
+
+        if(hit) {
+            EntityExplosion entityExplosion = new EntityExplosion(this.getMap(), this.getPosition(), hitEntity);
+            this.getMap().spawnEntity(entityExplosion);
+
+            this.getMap().despawnEntity(this);
         }
 
         if(this.getBody().overlaps(this.destinationBody)) {

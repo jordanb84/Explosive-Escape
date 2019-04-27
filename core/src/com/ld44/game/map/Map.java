@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
+import com.ld44.game.ui.Hud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,15 @@ public class Map {
 
     private Sprite crosshair;
 
+    private Hud hud;
+
     public Map(List<MapLayer> tileLayers, MapDefinition mapDefinition, List<Entity> entities) {
         this.tileLayers = tileLayers;
         this.mapDefinition = mapDefinition;
         this.entities = entities;
         this.crosshair = Assets.getInstance().getSprite("crosshair/crosshair6.png");
         this.crosshair.setAlpha(0.8f);
+        this.hud = hud;
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -86,6 +90,14 @@ public class Map {
 
     public MapDefinition getMapDefinition() {
         return mapDefinition;
+    }
+
+    public Hud getHud() {
+        return hud;
+    }
+
+    public void setHud(Hud hud) {
+        this.hud = hud;
     }
 
 }

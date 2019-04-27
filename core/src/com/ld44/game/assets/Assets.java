@@ -38,6 +38,7 @@ public class Assets {
         this.loadDirectory("crosshair");
 
         this.loadTexture("ui/bar.png");
+        this.loadTexture("ui/text.png");
 
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 

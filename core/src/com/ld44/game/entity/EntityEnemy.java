@@ -35,7 +35,9 @@ public abstract class EntityEnemy extends EntityBoat {
 
     private Vector2 spawnPosition;
 
-    public EntityEnemy(Map map, Vector2 position, float speed, float maxSpeed, float speedAcceleration, float rotationSpeed) {
+    private int value;
+
+    public EntityEnemy(int value, Map map, Vector2 position, float speed, float maxSpeed, float speedAcceleration, float rotationSpeed) {
         super(map, position, speed, maxSpeed, speedAcceleration, rotationSpeed);
         this.changeInterval = 6;
         this.targetDirection = Direction.UP;
@@ -47,6 +49,7 @@ public abstract class EntityEnemy extends EntityBoat {
         this.shapeRenderer.setAutoShapeType(true);
 
         this.spawnPosition = new Vector2(position.x, position.y);
+        this.value = value;
     }
 
     @Override
@@ -144,6 +147,18 @@ public abstract class EntityEnemy extends EntityBoat {
     public void reset() {
         super.reset();
         this.getPosition().set(this.getSpawnPosition().x, this.getSpawnPosition().y);
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        int reward = new Random().nextInt(this.value);
+
+        if(reward < this.value / 2) {
+            reward = this.value / 2;
+        }
+
+        this.getMap().getHud().modifyCash(reward);
     }
 
 }

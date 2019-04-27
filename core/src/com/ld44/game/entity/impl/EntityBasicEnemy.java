@@ -12,7 +12,7 @@ import com.ld44.game.map.Map;
 public class EntityBasicEnemy extends EntityEnemy {
 
     public EntityBasicEnemy(Map map, Vector2 position) {
-        super(map, position, 30, 40, 3, 30);;
+        super(5, map, position, 30, 40, 3, 30);;
     }
 
     @Override

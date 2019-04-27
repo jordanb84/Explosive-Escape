@@ -21,23 +21,50 @@ public class Hud {
 
     private BitmapFont font;
 
-    private int cash = 173;
+    private BitmapFont flashFont;
+
+    private BitmapFont mediumFont;
+
+    private int cash = 0;
+
+    private float flashElapsed;
+    private float flashDuration = 0.8f;
+
+    private boolean flash;
+
+    private Sprite statsBar;
+
+    private Sprite textSprite;
 
     public Hud(Map map, EntityPlayer player) {
         this.map = map;
         this.player = player;
-        this.barSprite = Assets.getInstance().getSprite("ui/bar.png");
+        this.barSprite = Assets.getInstance().getSprite("ui/text.png");
+        this.statsBar = Assets.getInstance().getSprite("ui/bar.png");
+        this.textSprite = Assets.getInstance().getSprite("ui/text.png");
 
         this.hudCamera = new OrthographicCamera();
         this.hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         this.font = new BitmapFont(Gdx.files.internal("font/shadow4.fnt"));
+        this.flashFont = new BitmapFont(Gdx.files.internal("font/flashGreen.fnt"));
+        this.mediumFont = new BitmapFont(Gdx.files.internal("font/greyMedium.fnt"));
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         batch.setProjectionMatrix(this.hudCamera.combined);
 
-        this.barSprite.setPosition(camera.viewportWidth / 2 - this.barSprite.getWidth() / 2, camera.viewportHeight - this.barSprite.getHeight());
+        /**for(int bar = 0; bar < this.hudCamera.viewportWidth / this.statsBar.getWidth(); bar++) {
+            this.statsBar.setPosition(bar * this.statsBar.getWidth(), this.hudCamera.viewportHeight - this.statsBar.getHeight());
+            this.statsBar.draw(batch);
+        }**/
+
+        this.textSprite.setPosition(camera.viewportWidth / 2 - this.barSprite.getWidth() / 2, camera.viewportHeight - this.barSprite.getHeight());
+
+        this.barSprite.setPosition(this.textSprite.getX(), this.textSprite.getY() - this.barSprite.getHeight());
+        //this.barSprite.draw(batch);
+
+        this.textSprite.draw(batch);
         this.barSprite.draw(batch);
 
         String cash = ("");
@@ -52,13 +79,33 @@ public class Hud {
 
         cash += this.cash + "";
 
-        this.font.draw(batch, cash, this.barSprite.getX() + this.barSprite.getWidth() / 10, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5);
+        BitmapFont font = this.mediumFont;
+
+        if(this.flash) {
+            font = this.flashFont;
+
+            this.flashElapsed += 1 * Gdx.graphics.getDeltaTime();
+
+            if(this.flashElapsed >= this.flashDuration) {
+                this.flashElapsed = 0;
+                this.flash = false;
+            }
+        }
+
+        font.draw(batch, "Balance", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 10, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 5);
+        font.draw(batch, cash, this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 2, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
 
         batch.setProjectionMatrix(camera.combined);
     }
 
     public void update(OrthographicCamera camera) {
 
+    }
+
+    public void modifyCash(int amount) {
+        this.cash += amount;
+
+        this.flash = true;
     }
 
 }

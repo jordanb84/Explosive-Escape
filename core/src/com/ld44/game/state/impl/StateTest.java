@@ -60,6 +60,8 @@ public class StateTest extends State {
         this.miniMap = new MiniMap(this.map);
 
         this.hud = new Hud(this.map, player);
+
+        this.map.setHud(this.hud);
     }
 
     @Override

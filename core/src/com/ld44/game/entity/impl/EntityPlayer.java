@@ -41,7 +41,7 @@ public class EntityPlayer extends EntityBoat {
             Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(mousePosition);
 
-            EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(mousePosition.x, mousePosition.y), false);
+            EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition().x, this.getPosition().y + this.getHeight() / 2), new Vector2(mousePosition.x, mousePosition.y), false);
             this.getMap().spawnEntity(bullet);
         }
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
+import com.ld44.game.ui.impl.UiStore;
 
 public class Hud {
 
@@ -36,6 +37,8 @@ public class Hud {
 
     private Sprite textSprite;
 
+    private UiStore uiStore;
+
     public Hud(Map map, EntityPlayer player) {
         this.map = map;
         this.player = player;
@@ -49,6 +52,8 @@ public class Hud {
         this.font = new BitmapFont(Gdx.files.internal("font/shadow4.fnt"));
         this.flashFont = new BitmapFont(Gdx.files.internal("font/flashGreen.fnt"));
         this.mediumFont = new BitmapFont(Gdx.files.internal("font/greyMedium.fnt"));
+
+        this.uiStore = new UiStore(this);
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -95,11 +100,16 @@ public class Hud {
         font.draw(batch, "Balance", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 10, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 5);
         font.draw(batch, cash, this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 2, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
 
+        this.uiStore.render(batch);
+
+        this.textSprite.setPosition(10, 10);
+        this.textSprite.draw(batch);
+
         batch.setProjectionMatrix(camera.combined);
     }
 
     public void update(OrthographicCamera camera) {
-
+        this.uiStore.update(camera);
     }
 
     public void modifyCash(int amount) {

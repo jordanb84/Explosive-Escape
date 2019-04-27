@@ -40,6 +40,10 @@ public class Assets {
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");
 
+        this.loadTexture("ui/ship_double_small.png");
+        this.loadTexture("ui/ship_double_small_hover.png");
+        this.loadTexture("ui/ship_double_small_down.png");
+
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 
         this.loadTexture("editorBackground.png");

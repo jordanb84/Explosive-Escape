@@ -3,6 +3,7 @@ package com.ld44.game.entity.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
@@ -14,9 +15,12 @@ public class EntityBullet extends Entity {
 
     private Vector2 destination;
 
+    private Rectangle destinationBody;
+
     public EntityBullet(Map map, Vector2 position, Vector2 destination) {
         super(map, position, 80);
         this.destination = destination;
+        this.destinationBody = new Rectangle(this.destination.x, this.destination.y, 0, 0);
     }
 
     @Override
@@ -27,6 +31,11 @@ public class EntityBullet extends Entity {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        this.moveTowardDestination();
+
+        if(this.getBody().overlaps(this.destinationBody)) {
+            this.getMap().despawnEntity(this);
+        }
     }
 
     private void moveTowardDestination() {

@@ -22,6 +22,7 @@ public class Assets {
 
     private void loadAssets() {
         this.loadTexture("entity/player.png");
+        this.loadTexture("entity/basicBullet.png");
 
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 

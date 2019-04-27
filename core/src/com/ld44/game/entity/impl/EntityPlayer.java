@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
 import com.ld44.game.entity.Direction;
@@ -27,6 +28,14 @@ public class EntityPlayer extends EntityBoat {
         super.update(camera);
 
       //  System.out.println(this.getSpeed());
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            camera.unproject(mousePosition);
+
+            EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(mousePosition.x, mousePosition.y));
+            this.getMap().spawnEntity(bullet);
+        }
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             this.changeDirection(Direction.UP);

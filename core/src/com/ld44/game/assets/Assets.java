@@ -29,10 +29,13 @@ public class Assets {
     private void loadAssets() {
         this.loadTextures("entity/player.png", "entity/player_small.png");
         this.loadTextures("entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
+        this.loadTextures("entity/small_0b.png", "entity/small_1b.png", "entity/small_2b.png", "entity/small_3b.png", "entity/small_4b.png");
         this.loadTextures("entity/small_double_0.png", "entity/small_double_1.png", "entity/small_double_2.png", "entity/small_double_3.png", "entity/small_double_4.png");
 
         this.loadTextures("entity/medium_double_0.png", "entity/medium_double_1.png", "entity/medium_double_2.png", "entity/medium_double_3.png", "entity/medium_double_4.png");
+        this.loadTextures("entity/medium_large_0.png", "entity/medium_large_1.png", "entity/medium_large_2.png", "entity/medium_large_3.png", "entity/medium_large_4.png");
         this.loadTextures("ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png");
+        this.loadTextures("ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
 
         this.loadTexture("entity/enemy_small.png");
         this.loadTexture("entity/basicBullet.png");
@@ -46,6 +49,9 @@ public class Assets {
 
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");
+        this.loadTexture("ui/boss.png");
+        this.loadTexture("ui/boss_hover.png");
+        this.loadTexture("ui/boss_down.png");
         this.loadTexture("entity/small_destroyed.png");
         this.loadTexture("entity/playerBullet.png");
 

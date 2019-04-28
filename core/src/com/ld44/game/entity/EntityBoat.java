@@ -152,4 +152,12 @@ public abstract class EntityBoat extends Entity {
 
     public abstract String[] getRipples();
 
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setSpeedAcceleration(float speedAcceleration) {
+        this.speedAcceleration = speedAcceleration;
+    }
+
 }

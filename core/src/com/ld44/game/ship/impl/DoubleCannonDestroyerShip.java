@@ -16,6 +16,9 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
 
     public DoubleCannonDestroyerShip(Map map, EntityPlayer player) {
         super(map, player);
+        player.setSpeed(180);
+        player.setMaxSpeed(210);
+        player.setSpeedAcceleration(12);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
     public DirectionalAnimation createAnimation() {
         Animation baseAnimation = new Animation();
 
-        baseAnimation.addFrames(0.08f, "entity/medium_double_0.png", "entity/medium_double_1.png", "entity/medium_double_2.png", "entity/medium_double_3.png", "entity/medium_double_4.png");
+        baseAnimation.addFrames(0.08f, "entity/medium_large_0.png", "entity/medium_large_1.png", "entity/medium_large_2.png", "entity/medium_large_3.png", "entity/medium_large_4.png");
 
         DirectionalAnimation directionalAnimation = new DirectionalAnimation();
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);

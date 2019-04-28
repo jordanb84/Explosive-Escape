@@ -1,5 +1,6 @@
 package com.ld44.game.ui.impl;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -43,17 +44,29 @@ abstract class StoreButton extends ImageButton {
 
     private Hud hud;
 
-    public StoreButton(final Hud hud, EntityPlayer player, final int price, String imageUp, String imageDown, String imageHover) {
-        super(new SpriteDrawable(Assets.getInstance().getSprite(imageUp)), new SpriteDrawable(Assets.getInstance().getSprite(imageDown)));
-        this.getStyle().imageOver = new SpriteDrawable(Assets.getInstance().getSprite(imageHover));
+    private boolean locked;
+
+    private SpriteDrawable unlockedUp;
+    private SpriteDrawable unlockedDown;
+    private SpriteDrawable unlockedHover;
+
+    public StoreButton(final Hud hud, EntityPlayer player, final int price, String imageUp, String imageDown, String imageHover, String imageUpLocked, String imageDownLocked, String imageHoverLocked) {
+        super(new SpriteDrawable(Assets.getInstance().getSprite(imageUpLocked)), new SpriteDrawable(Assets.getInstance().getSprite(imageDownLocked)));
+        this.getStyle().imageOver = new SpriteDrawable(Assets.getInstance().getSprite(imageHoverLocked));
+
+        this.unlockedUp = new SpriteDrawable(Assets.getInstance().getSprite(imageUp));
+        this.unlockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDown));
+        this.unlockedHover = new SpriteDrawable(Assets.getInstance().getSprite(imageHover));
 
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 if(hud.getCash() >= price) {
-                    hud.modifyCash(-price);
-                    paid();
+                    if(!locked) {
+                        hud.modifyCash(-price);
+                        paid();
+                    }
                 }
             }
         });
@@ -81,12 +94,20 @@ abstract class StoreButton extends ImageButton {
         return player;
     }
 
+    public void unlock() {
+        this.locked = false;
+
+        this.getStyle().imageUp = this.unlockedUp;
+        this.getStyle().imageDown = this.unlockedDown;
+        this.getStyle().imageOver = this.unlockedHover;
+    }
+
 }
 
 class StoreButtonDoubleSmall extends StoreButton {
 
     public StoreButtonDoubleSmall(Hud hud, EntityPlayer player) {
-        super(hud, player,2,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
+        super(hud, player,30,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
     }
 
     @Override
@@ -101,7 +122,7 @@ class StoreButtonDoubleSmall extends StoreButton {
 
     @Override
     public String getDescription() {
-        return ("Twice the firepower!");
+        return ("Twice the firepower and more speed!");
     }
 
 }
@@ -110,7 +131,7 @@ class StoreButtonDoubleSmall extends StoreButton {
 class StoreButtonDoubleMedium extends StoreButton {
 
     public StoreButtonDoubleMedium(Hud hud, EntityPlayer player) {
-        super(hud, player,2,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png");
+        super(hud, player,2,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
     }
 
     @Override
@@ -125,7 +146,7 @@ class StoreButtonDoubleMedium extends StoreButton {
 
     @Override
     public String getDescription() {
-        return ("Far more durable!");
+        return ("Far more durable and packed with speed!");
     }
 
 }

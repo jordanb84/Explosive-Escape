@@ -66,7 +66,7 @@ public class EntityBullet extends Entity {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityPlayer) {
                     if(entity.getBody().overlaps(this.getBody())) {
-                        ((EntityPlayer) entity).damage(0.005f);
+                        ((EntityPlayer) entity).damage(0.002f);
                         hit = true;
                         hitEntity = entity;
                     }

@@ -45,7 +45,7 @@ public abstract class Entity {
         this.updateBody();
         this.getLastMovement().set(0, 0);
 
-        if(this.getHealth() <= 0.1f) {
+        if(this.getHealth() <= 0.2f) {
             this.die();
             this.getMap().despawnEntity(this);
         }

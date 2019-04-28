@@ -31,7 +31,7 @@ public class EntityBasicEnemy extends EntityEnemy {
     public DirectionalAnimation createAnimation() {
         Animation baseAnimation = new Animation();
 
-        baseAnimation.addFrames(0.08f, "entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
+        baseAnimation.addFrames(0.08f, "entity/small_0b.png", "entity/small_1b.png", "entity/small_2b.png", "entity/small_3b.png", "entity/small_4b.png");
 
         DirectionalAnimation directionalAnimation = new DirectionalAnimation();
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);

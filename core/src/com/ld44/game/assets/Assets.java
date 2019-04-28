@@ -51,6 +51,8 @@ public class Assets {
         this.loadDirectory("crosshair");
         this.loadDirectory("explosion/medium");
         this.loadDirectory("explosion/nine");
+        this.loadDirectory("explosion/rocket");
+        this.loadDirectory("explosion/large");
 
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");

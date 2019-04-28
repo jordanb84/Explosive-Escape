@@ -13,8 +13,6 @@ import com.ld44.game.map.Map;
 
 public abstract class EntityBoat extends Entity {
 
-    private float rotation;
-
     private float maxSpeed;
 
     private float speedAcceleration;
@@ -126,13 +124,6 @@ public abstract class EntityBoat extends Entity {
         }
     }
 
-    public float getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
 
     public float getRotationSpeed() {
         return rotationSpeed;
@@ -147,7 +138,7 @@ public abstract class EntityBoat extends Entity {
     }
 
     public void pointAt(Vector2 target) {
-        this.rotation = this.rotationToPoint(target);
+        this.setRotation(this.rotationToPoint(target));
     }
 
     public float rotationToPoint(Vector2 target) {

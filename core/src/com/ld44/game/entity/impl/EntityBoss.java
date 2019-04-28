@@ -29,6 +29,13 @@ public class EntityBoss extends EntityEnemy {
 
     private List<IntervalBurst> bursts = new ArrayList<IntervalBurst>();
 
+    private float rockeElapsed;
+
+    private float defaultRocketInterval = 2;
+    private float rocketInterval = defaultRocketInterval;
+
+    private String rocketExplosion = ("explosion/large/rocket_");
+
     //shoot rockets, lots of damage
     //shoot more or something, maybe start flashing too when low hp (50%)
 
@@ -51,6 +58,27 @@ public class EntityBoss extends EntityEnemy {
         super.update(camera);
         for(IntervalBurst burst : this.bursts) {
             burst.update();
+        }
+
+        this.rockeElapsed += 1 * Gdx.graphics.getDeltaTime();
+
+        if(this.rockeElapsed >= this.rocketInterval) {
+            EntityPlayer player = this.getMap().getPlayer();
+
+            Vector2 origin = new Vector2(this.getPosition().x, this.getPosition().y);
+            Vector2 destination = new Vector2(player.getPosition().x + player.getWidth() / 2, player.getPosition().y + player.getHeight() / 2);
+
+            EntityRocket rocket = new EntityRocket(this.getMap(), origin, destination, true, this.rocketExplosion);
+
+            this.getMap().spawnEntity(rocket);
+
+            this.rockeElapsed = 0;
+
+            this.rocketInterval = new Random().nextInt((int) this.defaultRocketInterval);
+
+            if(this.rocketInterval < this.defaultRocketInterval / 2) {
+                rocketInterval = this.defaultRocketInterval;
+            }
         }
     }
 

@@ -36,6 +36,8 @@ public class EntityBullet extends Entity {
 
     private boolean shouldMove;
 
+    private float lifespan;
+
     public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy, String explosionSpritePath) {
         super(map, position, 160);
         this.destination = destination;
@@ -52,6 +54,7 @@ public class EntityBullet extends Entity {
         this.explosionSpritePath = explosionSpritePath;
 
         this.shouldMove = true;
+        this.lifespan = 8;
     }
 
     @Override
@@ -65,6 +68,10 @@ public class EntityBullet extends Entity {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        if(this.lifeElapsed >= this.lifespan) {
+            this.getMap().despawnEntity(this);
+        }
+
         this.lifeElapsed += 1 * Gdx.graphics.getDeltaTime();
 
         if(this.enemy && this.lifeElapsed < this.getRange()) {
@@ -117,7 +124,7 @@ public class EntityBullet extends Entity {
         }
     }
 
-    private void moveTowardDestination() {
+    public void moveTowardDestination() {
         Vector2 force = new Vector2();
 
         if(this.getPosition().x < this.destination.x) {
@@ -206,6 +213,10 @@ public class EntityBullet extends Entity {
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+    }
+
+    public void setLifespan(float lifespan) {
+        this.lifespan = lifespan;
     }
 
 }

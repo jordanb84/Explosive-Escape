@@ -28,6 +28,8 @@ public abstract class Entity {
 
     private float health;
 
+    private float rotation;
+
     public Entity(Map map, Vector2 position, float speed) {
         this.position = position;
         this.speed = speed;
@@ -155,6 +157,37 @@ public abstract class Entity {
 
     public void setAnimation(DirectionalAnimation animation) {
         this.animation = animation;
+    }
+
+    public float rotationToPoint(Vector2 target) {
+        float pointRotation = 0;
+
+        Vector2 facing = new Vector2(target.x - this.getPosition().x, target.y - this.getPosition().y);
+
+        pointRotation = (float) Math.toDegrees((Math.atan2(facing.y, facing.x)));
+        pointRotation = pointRotation + (360 / 4);
+
+        pointRotation = pointRotation + 180;
+
+        return pointRotation;
+    }
+
+    public void applyVelocity() {
+        float forceX = -this.getSpeed() * (float) Math.cos(Math.toRadians(this.getRotation() - 90));
+        float forceY = -this.getSpeed() * (float) Math.sin(Math.toRadians(this.getRotation() - 90));
+
+        float delta = Gdx.graphics.getDeltaTime();
+
+        this.getPosition().add(forceX * delta, forceY * delta);
+        this.getLastMovement().set(forceX * delta, forceY * delta);
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
 }

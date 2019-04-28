@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
+import com.ld44.game.entity.impl.EntityBasicEnemy;
 import com.ld44.game.entity.impl.EntityDestroyed;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.ui.Hud;
@@ -118,6 +120,33 @@ public class Map {
 
     public void setPlayer(EntityPlayer player) {
         this.player = player;
+    }
+
+    public void spawnEnemies() {
+        int chunkWidth = 512;
+        int chunkHeight = 512;
+
+        int mapPixelWidth = this.getMapDefinition().getMapWidth() * this.getMapDefinition().getTileWidth();
+        int mapPixelHeight = this.getMapDefinition().getMapHeight() * this.getMapDefinition().getTileHeight();
+
+        int rows = mapPixelHeight / chunkHeight;
+        int columns = mapPixelWidth / chunkWidth;
+
+        int enemySpacingWidth = 64;
+        int enemySpacingHeight = 64;
+
+        for(int chunkRow = 0; chunkRow < rows; chunkRow++) {
+            for(int chunk = 0; chunk < columns; chunk++) {
+                Vector2 chunkPosition = new Vector2(chunk * chunkWidth, chunkRow * chunkHeight);
+
+                for(int enemiesSpawned = 0; enemiesSpawned < 2; enemiesSpawned++) {
+                    Vector2 position = new Vector2(chunkPosition.x + enemySpacingWidth * enemiesSpawned, chunkPosition.y + (enemySpacingHeight / 2) * enemiesSpawned);
+                    EntityBasicEnemy entityBasicEnemy = new EntityBasicEnemy(this, position);
+                    this.spawnEntity(entityBasicEnemy);
+                }
+            }
+        }
+
     }
 
 }

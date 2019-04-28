@@ -3,6 +3,7 @@ package com.ld44.game.ui.impl;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -184,7 +185,7 @@ class StoreButtonBoss extends StoreButton {
 
     @Override
     public String getName() {
-        return ("Challenge the Boss");
+        return ("Find and Challenge the Loot Flagship");
     }
 
     @Override

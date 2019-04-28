@@ -32,6 +32,7 @@ public class Assets {
         this.loadTextures("entity/small_double_0.png", "entity/small_double_1.png", "entity/small_double_2.png", "entity/small_double_3.png", "entity/small_double_4.png");
 
         this.loadTextures("entity/medium_double_0.png", "entity/medium_double_1.png", "entity/medium_double_2.png", "entity/medium_double_3.png", "entity/medium_double_4.png");
+        this.loadTextures("ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png");
 
         this.loadTexture("entity/enemy_small.png");
         this.loadTexture("entity/basicBullet.png");
@@ -40,9 +41,12 @@ public class Assets {
 
         this.loadDirectory("explosion/small");
         this.loadDirectory("crosshair");
+        this.loadDirectory("explosion/medium");
+        this.loadDirectory("explosion/nine");
 
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");
+        this.loadTexture("entity/small_destroyed.png");
 
         this.loadTexture("ui/ship_double_small.png");
         this.loadTexture("ui/ship_double_small_hover.png");

@@ -22,8 +22,8 @@ public class DoubleCannonFrigateShip extends PlayerShip {
     public List<EntityBullet> generateBulletsForPosition(Vector2 destination) {
         List<EntityBullet> bullets = new ArrayList<EntityBullet>();
 
-        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false);
-        EntityBullet bullet1 = new EntityBullet(this.getMap(), new Vector2(this.getBulletOrigin().x + 20, this.getBulletOrigin().y + 10), destination, false);
+        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false, "explosion/nine/nine_");
+        EntityBullet bullet1 = new EntityBullet(this.getMap(), new Vector2(this.getBulletOrigin().x + 20, this.getBulletOrigin().y + 10), destination, false, "explosion/nine/nine_");
 
         bullets.add(bullet);
         bullets.add(bullet1);

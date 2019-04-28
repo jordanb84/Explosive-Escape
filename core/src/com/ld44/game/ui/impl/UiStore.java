@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.impl.EntityPlayer;
+import com.ld44.game.ship.impl.DoubleCannonDestroyerShip;
 import com.ld44.game.ship.impl.DoubleCannonFrigateShip;
 import com.ld44.game.state.StateManager;
 import com.ld44.game.ui.Hud;
@@ -25,6 +26,10 @@ public class UiStore extends UiContainer {
     public void create() {
         this.getRootTable().setPosition(this.getRootTable().getX() + 240, this.getRootTable().getY());
         this.getRootTable().addActor(new StoreButtonDoubleSmall(this.getHud(), this.getHud().getPlayer()));
+
+        StoreButtonDoubleMedium doubleMedium = new StoreButtonDoubleMedium(this.getHud(), this.getHud().getPlayer());
+        doubleMedium.setPosition(doubleMedium.getX() + 80, doubleMedium.getY() + 20);
+        this.getRootTable().addActor(doubleMedium);
     }
 
 
@@ -97,6 +102,30 @@ class StoreButtonDoubleSmall extends StoreButton {
     @Override
     public String getDescription() {
         return ("Twice the firepower!");
+    }
+
+}
+
+
+class StoreButtonDoubleMedium extends StoreButton {
+
+    public StoreButtonDoubleMedium(Hud hud, EntityPlayer player) {
+        super(hud, player,2,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png");
+    }
+
+    @Override
+    public void paid() {
+        this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
+    }
+
+    @Override
+    public String getName() {
+        return ("Double Cannon Destroyer");
+    }
+
+    @Override
+    public String getDescription() {
+        return ("Far more durable!");
     }
 
 }

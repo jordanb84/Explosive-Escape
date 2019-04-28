@@ -1,10 +1,12 @@
 package com.ld44.game.entity.impl;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
+import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.map.Map;
@@ -46,4 +48,8 @@ public class EntityBasicEnemy extends EntityEnemy {
         return new String[] {"entity/water_ripple_small_000.png", "entity/water_ripple_small_001.png", "entity/water_ripple_small_002.png", "entity/water_ripple_small_003.png", "entity/water_ripple_small_004.png"};
     }
 
+    @Override
+    public Sprite getDestroyedSprite() {
+        return Assets.getInstance().getSprite("entity/small_destroyed.png");
+    }
 }

@@ -22,7 +22,9 @@ public class EntityBullet extends Entity {
 
     private int threshold = 1;
 
-    public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy) {
+    private String explosionSpritePath;
+
+    public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy, String explosionSpritePath) {
         super(map, position, 160);
         this.destination = destination;
         this.destinationBody = new Rectangle(this.destination.x, this.destination.y, this.threshold, this.threshold);
@@ -31,6 +33,8 @@ public class EntityBullet extends Entity {
         if(enemy) {
             this.setSpeed(this.getSpeed() * 2);
         }
+
+        this.explosionSpritePath = explosionSpritePath;
     }
 
     @Override
@@ -51,7 +55,7 @@ public class EntityBullet extends Entity {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityPlayer) {
                     if(entity.getBody().overlaps(this.getBody())) {
-                        entity.setHealth(entity.getHealth() - 0.005f);
+                        ((EntityPlayer) entity).damage(0.005f);
                         hit = true;
                         hitEntity = entity;
                     }
@@ -70,7 +74,7 @@ public class EntityBullet extends Entity {
         }
 
         if(hit) {
-            EntityExplosion entityExplosion = new EntityExplosion(this.getMap(), this.getPosition(), hitEntity);
+            EntityExplosion entityExplosion = new EntityExplosion(this.getMap(), this.getPosition(), hitEntity, this.explosionSpritePath);
             this.getMap().spawnEntity(entityExplosion);
 
             this.getMap().despawnEntity(this);

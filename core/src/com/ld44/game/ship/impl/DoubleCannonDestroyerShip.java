@@ -22,8 +22,8 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
     public List<EntityBullet> generateBulletsForPosition(Vector2 destination) {
         List<EntityBullet> bullets = new ArrayList<EntityBullet>();
 
-        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false);
-        EntityBullet bullet1 = new EntityBullet(this.getMap(), new Vector2(this.getBulletOrigin().x + 20, this.getBulletOrigin().y + 10), destination, false);
+        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false, "explosion/small/small_");
+        EntityBullet bullet1 = new EntityBullet(this.getMap(), new Vector2(this.getBulletOrigin().x + 20, this.getBulletOrigin().y + 10), destination, false, "explosion/small/small_");
 
         bullets.add(bullet);
         bullets.add(bullet1);
@@ -35,7 +35,7 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
     public DirectionalAnimation createAnimation() {
         Animation baseAnimation = new Animation();
 
-        baseAnimation.addFrames(0.08f, "entity/small_double_0.png", "entity/small_double_1.png", "entity/small_double_2.png", "entity/small_double_3.png", "entity/small_double_4.png");
+        baseAnimation.addFrames(0.08f, "entity/medium_double_0.png", "entity/medium_double_1.png", "entity/medium_double_2.png", "entity/medium_double_3.png", "entity/medium_double_4.png");
 
         DirectionalAnimation directionalAnimation = new DirectionalAnimation();
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);

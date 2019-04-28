@@ -2,12 +2,14 @@ package com.ld44.game.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.entity.EntityBoat;
 import com.ld44.game.entity.impl.EntityBullet;
+import com.ld44.game.entity.impl.EntityDestroyed;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 
@@ -88,7 +90,7 @@ public abstract class EntityEnemy extends EntityBoat {
             if(entity instanceof EntityPlayer) {
                 if(this.getBody().overlaps(this.fireRange)) {
                     if(this.elapsedSinceFire >= this.fireInterval){
-                        EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(entity.getPosition()), true);
+                        EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(entity.getPosition()), true, "explosion/small/small_");
 
                         this.getMap().spawnEntity(bullet);
                         this.elapsedSinceFire = 0;
@@ -159,6 +161,10 @@ public abstract class EntityEnemy extends EntityBoat {
         }
 
         this.getMap().getHud().modifyCash(reward);
+
+        this.getMap().spawnEntity(new EntityDestroyed(this.getMap(), new Vector2(this.getPosition()), this.getDestroyedSprite(), this.getRotation()));
     }
+
+    public abstract Sprite getDestroyedSprite();
 
 }

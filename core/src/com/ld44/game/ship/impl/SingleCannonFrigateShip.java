@@ -22,7 +22,7 @@ public class SingleCannonFrigateShip extends PlayerShip {
     public List<EntityBullet> generateBulletsForPosition(Vector2 destination) {
         List<EntityBullet> bullets = new ArrayList<EntityBullet>();
 
-        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false);
+        EntityBullet bullet = new EntityBullet(this.getMap(), this.getBulletOrigin(), destination, false, "explosion/small/small_");
 
         bullets.add(bullet);
 

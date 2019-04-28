@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
+import com.ld44.game.entity.impl.EntityDestroyed;
 import com.ld44.game.ui.Hud;
 
 import java.util.ArrayList;
@@ -43,7 +44,15 @@ public class Map {
         }
 
         for(Entity entity : this.getEntities()) {
-            entity.render(batch, camera);
+            if(entity instanceof EntityDestroyed) {
+                entity.render(batch, camera);
+            }
+        }
+
+        for(Entity entity : this.getEntities()) {
+            if(!(entity instanceof EntityDestroyed)) {
+                entity.render(batch, camera);
+            }
         }
 
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);

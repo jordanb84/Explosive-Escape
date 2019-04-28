@@ -19,9 +19,27 @@ public class EntityExplosion extends Entity {
 
     private Entity hitEntity;
 
-    public EntityExplosion(Map map, Vector2 position, Entity hitEntity) {
+    public EntityExplosion(Map map, Vector2 position, Entity hitEntity, String spritePath) {
         super(map, position, 0);
         this.hitEntity = hitEntity;
+
+        Animation baseAnimation = new Animation();
+
+        float duration = 0.03f;
+
+        for(int i = 0; i < 23; i++) {
+            //baseAnimation.addFrame(new Frame(Assets.getInstance().getSprite("explosion/small/small_" + i + ".png"), duration));
+            baseAnimation.addFrame(new Frame(Assets.getInstance().getSprite(spritePath + i + ".png"), duration));
+        }
+
+        DirectionalAnimation directionalAnimation = new DirectionalAnimation();
+        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);
+        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.DOWN);
+        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.RIGHT);
+        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.LEFT);
+        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.NONE);
+
+        this.setAnimation(directionalAnimation);
     }
 
     @Override
@@ -46,24 +64,7 @@ public class EntityExplosion extends Entity {
 
     @Override
     public DirectionalAnimation createAnimation() {
-        Animation baseAnimation = new Animation();
-
-        float duration = 0.03f;
-
-        for(int i = 0; i < 23; i++) {
-            baseAnimation.addFrame(new Frame(Assets.getInstance().getSprite("explosion/small/small_" + i + ".png"), duration));
-        }
-
-       // System.out.println("Loaded " + baseAnimation.getFrames().size() + " frames");
-
-        DirectionalAnimation directionalAnimation = new DirectionalAnimation();
-        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.UP);
-        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.DOWN);
-        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.RIGHT);
-        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.LEFT);
-        directionalAnimation.addAnimationForDirection(baseAnimation, Direction.NONE);
-
-        return directionalAnimation;
+        return null;
     }
 
 }

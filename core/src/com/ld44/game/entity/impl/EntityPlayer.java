@@ -101,4 +101,8 @@ public class EntityPlayer extends EntityBoat {
         this.playerShip = playerShip;
     }
 
+    public void damage(float amount) {
+        this.setHealth(this.getHealth() - this.playerShip.modifyDamage(amount));
+    }
+
 }

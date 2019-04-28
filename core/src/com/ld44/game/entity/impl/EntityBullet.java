@@ -29,6 +29,13 @@ public class EntityBullet extends Entity {
 
     private Sprite sprite;
 
+    //act as homing bullets for the first second or so, so the player cant stand under the boss at slow speed and not get hit
+    private float lifeElapsed;
+
+    private float range;
+
+    private boolean shouldMove;
+
     public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy, String explosionSpritePath) {
         super(map, position, 160);
         this.destination = destination;
@@ -43,6 +50,8 @@ public class EntityBullet extends Entity {
         }
 
         this.explosionSpritePath = explosionSpritePath;
+
+        this.shouldMove = true;
     }
 
     @Override
@@ -56,7 +65,15 @@ public class EntityBullet extends Entity {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
-        this.moveTowardDestination();
+        this.lifeElapsed += 1 * Gdx.graphics.getDeltaTime();
+
+        if(this.enemy && this.lifeElapsed < this.getRange()) {
+            this.destination = new Vector2(this.getMap().getPlayer().getPosition());
+        }
+
+        if(this.shouldMove) {
+            this.moveTowardDestination();
+        }
 
         boolean hit = false;
 
@@ -69,6 +86,7 @@ public class EntityBullet extends Entity {
                         ((EntityPlayer) entity).damage(0.002f);
                         hit = true;
                         hitEntity = entity;
+                        //System.out.println("Hit player");
                     }
                 }
             }
@@ -76,7 +94,8 @@ public class EntityBullet extends Entity {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityEnemy) {
                     if(entity.getBody().overlaps(this.getBody())) {
-                        entity.setHealth(entity.getHealth() - 0.1f);
+                        //entity.setHealth(entity.getHealth() - 0.1f);
+                        ((EntityEnemy) entity).damage(0.1f);
                         hit = true;
                         hitEntity = entity;
                     }
@@ -90,6 +109,8 @@ public class EntityBullet extends Entity {
 
             this.getMap().despawnEntity(this);
         }
+
+        this.destinationBody.set(this.destination.x, this.destination.y, this.destinationBody.width, this.destinationBody.height);
 
         if(this.getBody().overlaps(this.destinationBody)) {
             this.getMap().despawnEntity(this);
@@ -169,6 +190,22 @@ public class EntityBullet extends Entity {
         directionalAnimation.addAnimationForDirection(baseAnimation, Direction.NONE);
 
         return directionalAnimation;
+    }
+
+    public float getRange() {
+        return range;
+    }
+
+    public void setRange(float range) {
+        this.range = range;
+    }
+
+    public void setShouldMove(boolean shouldMove) {
+        this.shouldMove = shouldMove;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
     }
 
 }

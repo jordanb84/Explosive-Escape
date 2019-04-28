@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.impl.EntityBasicEnemy;
+import com.ld44.game.entity.impl.EntityBoss;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 import com.ld44.game.map.MapDefinition;
@@ -52,10 +53,15 @@ public class StateTest extends State {
 
         EntityPlayer player = new EntityPlayer(this.map, new Vector2(centerX, centerY));
         this.map.spawnEntity(player);
+        this.map.setPlayer(player);
 
         this.font = new BitmapFont(Gdx.files.internal("font/large.fnt"));
 
-        this.spawnEnemies();
+        //this.spawnEnemies();
+
+        EntityBoss boss = new EntityBoss(this.map, new Vector2(centerX + 100, centerY + 150));
+
+        this.map.spawnEntity(boss);
 
         this.miniMap = new MiniMap(this.map);
 

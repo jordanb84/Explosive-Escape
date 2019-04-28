@@ -38,11 +38,16 @@ public class UiStore extends UiContainer {
         doubleMedium.setPosition(doubleMedium.getX() + 80, doubleMedium.getY() + 20);
         this.getRootTable().addActor(doubleMedium);
 
+        StoreButtonBoss boss = new StoreButtonBoss(this, this.getHud(), this.getHud().getPlayer());
+        boss.setPosition(doubleMedium.getX() + 200, boss.getY() + boss.getHeight() / 2);
+        this.getRootTable().addActor(boss);
+
         this.unlocks = new HashMap<Unlocks, StoreButton>();
 
         System.out.println(this.unlocks + "/" + doubleSmall);
         this.unlocks.put(Unlocks.FRIGATE, doubleSmall);
         this.unlocks.put(Unlocks.DESTROYER, doubleMedium);
+        this.unlocks.put(Unlocks.BOSS, boss);
     }
 
     public void unlock(Unlocks unlock) {
@@ -166,6 +171,33 @@ class StoreButtonDoubleSmall extends StoreButton {
 
 }
 
+class StoreButtonBoss extends StoreButton {
+
+    public StoreButtonBoss(UiStore store, Hud hud, EntityPlayer player) {
+        super(store, hud, player, 124, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
+    }
+
+    @Override
+    public void paid() {
+        this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
+    }
+
+    @Override
+    public String getName() {
+        return ("Challenge the Boss");
+    }
+
+    @Override
+    public String getDescription() {
+        return ("Gain your freedom!");
+    }
+
+    @Override
+    public String getLockedText() {
+        return ("[Locked - Requires Double Cannon Destroyer]");
+    }
+}
+
 
 class StoreButtonDoubleMedium extends StoreButton {
 
@@ -176,6 +208,7 @@ class StoreButtonDoubleMedium extends StoreButton {
     @Override
     public void paid() {
         this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
+        this.getStore().unlock(Unlocks.BOSS);
     }
 
     @Override
@@ -192,5 +225,7 @@ class StoreButtonDoubleMedium extends StoreButton {
     public String getLockedText() {
         return ("[Locked - Requires Double Cannon Frigate]");
     }
+
+
 
 }

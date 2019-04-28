@@ -9,6 +9,7 @@ import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.entity.impl.EntityDestroyed;
+import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.ui.Hud;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class Map {
     private Sprite crosshair;
 
     private Hud hud;
+
+    private EntityPlayer player;
 
     public Map(List<MapLayer> tileLayers, MapDefinition mapDefinition, List<Entity> entities) {
         this.tileLayers = tileLayers;
@@ -107,6 +110,14 @@ public class Map {
 
     public void setHud(Hud hud) {
         this.hud = hud;
+    }
+
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(EntityPlayer player) {
+        this.player = player;
     }
 
 }

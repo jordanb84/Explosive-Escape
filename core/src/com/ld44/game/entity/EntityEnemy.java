@@ -78,7 +78,8 @@ public abstract class EntityEnemy extends EntityBoat {
 
         //this.fireRange.set(this.getPosition().x - (this.getWidth() * 2 + this.getWidth() / 2), this.getPosition().y - (this.getHeight() * 2 + this.getHeight() / 2), this.getWidth() * 6, this.getHeight() * 6);
         //if the player can see us
-        this.fireRange.set(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+        //this.fireRange.set(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+        this.updateFireRange(camera);
 
         if(this.getSpeed() < this.getMaxSpeed() / 2) {
             this.changeSpeed(this.getMaxSpeed() / 2);
@@ -107,7 +108,7 @@ public abstract class EntityEnemy extends EntityBoat {
 
             //System.out.println("Diff " + diff + " target " + this.targetRotation + " current " + this.getRotation());
 
-                float rotationModifier = (this.getRotationSpeed() * 3) * Gdx.graphics.getDeltaTime();
+                float rotationModifier = this.getRotationModifier() * Gdx.graphics.getDeltaTime();
                 if (this.targetRotation > this.getRotation()) {
                     this.setRotation(this.getRotation() + rotationModifier);
                 }
@@ -116,6 +117,10 @@ public abstract class EntityEnemy extends EntityBoat {
                     this.setRotation(this.getRotation() - rotationModifier);
                 }
             }
+    }
+
+    public float getRotationModifier() {
+        return this.getRotationSpeed() * 3;
     }
 
     private void wander() {
@@ -166,5 +171,17 @@ public abstract class EntityEnemy extends EntityBoat {
     }
 
     public abstract Sprite getDestroyedSprite();
+
+    public void setFireRange(Rectangle fireRange) {
+        this.fireRange = fireRange;
+    }
+
+    public Rectangle getFireRange() {
+        return fireRange;
+    }
+
+    public void updateFireRange(OrthographicCamera camera) {
+        this.fireRange.set(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+    }
 
 }

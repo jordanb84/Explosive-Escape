@@ -37,10 +37,15 @@ public class Assets {
         this.loadTextures("ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png");
         this.loadTextures("ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
 
+        this.loadTextures("entity/large_gunned_0.png", "entity/large_gunned_1.png", "entity/large_gunned_2.png", "entity/large_gunned_3.png", "entity/large_gunned_4.png");
+
         this.loadTexture("entity/enemy_small.png");
         this.loadTexture("entity/basicBullet.png");
+        this.loadTexture("entity/basicBulletPink.png");
         this.loadTexture("radar.png");
         this.loadTexture("tile/water5.png");
+
+        this.loadTexture("entity/large_destroyed.png");
 
         this.loadDirectory("explosion/small");
         this.loadDirectory("crosshair");
@@ -58,6 +63,9 @@ public class Assets {
         this.loadTexture("ui/ship_double_small.png");
         this.loadTexture("ui/ship_double_small_hover.png");
         this.loadTexture("ui/ship_double_small_down.png");
+
+        this.loadTextures("ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png");
+        this.loadTextures("ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
 
         this.loadTextures("tile/air.png", "tile/grass.png", "tile/stone.png", "tile/water.png");
 

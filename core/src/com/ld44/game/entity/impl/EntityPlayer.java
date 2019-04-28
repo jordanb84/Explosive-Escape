@@ -11,9 +11,13 @@ import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Direction;
+import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityBoat;
+import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.map.Map;
 import com.ld44.game.ship.PlayerShip;
+import com.ld44.game.ship.impl.DoubleCannonDestroyerShip;
+import com.ld44.game.ship.impl.DoubleCannonFrigateShip;
 import com.ld44.game.ship.impl.SingleCannonFrigateShip;
 
 public class EntityPlayer extends EntityBoat {
@@ -24,7 +28,7 @@ public class EntityPlayer extends EntityBoat {
 
     public EntityPlayer(Map map, Vector2 position) {
         super(map, position, 120, 150, 8, 50);
-        this.playerShip = new SingleCannonFrigateShip(map, this);
+        this.setPlayerShip(new DoubleCannonDestroyerShip(map, this));
     }
 
     @Override
@@ -103,6 +107,22 @@ public class EntityPlayer extends EntityBoat {
 
     public void damage(float amount) {
         this.setHealth(this.getHealth() - this.playerShip.modifyDamage(amount));
+    }
+
+    @Override
+    public boolean canMove() {
+        /**for(Entity entity : this.getMap().getEntities()) {
+            if(entity instanceof EntityBoss) {
+                EntityEnemy enemy = ((EntityEnemy) entity);
+                enemy.updatePolygonBody();
+                System.out.println(enemy.getPolygonBody().getBoundingRectangle().width);
+                if(this.getPolygonBody().getBoundingRectangle().overlaps(enemy.getPolygonBody().getBoundingRectangle())) {
+                    return false;
+                }
+            }
+        }**/
+
+        return true;
     }
 
 }

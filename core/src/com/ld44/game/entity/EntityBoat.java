@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
+import com.ld44.game.entity.impl.EntityBullet;
+import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 
 public abstract class EntityBoat extends Entity {
@@ -19,6 +22,8 @@ public abstract class EntityBoat extends Entity {
     private float rotationSpeed;
 
     private Animation rippleAnimation;
+
+    private Polygon polygonBody = new Polygon();
 
     public EntityBoat(Map map, Vector2 position, float speed, float maxSpeed, float speedAcceleration, float rotationSpeed) {
         super(map, position, speed);
@@ -51,6 +56,8 @@ public abstract class EntityBoat extends Entity {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        this.updatePolygonBody();
+
         this.applyVelocity();
 
         if(this.getRotation() >= 360) {
@@ -62,13 +69,19 @@ public abstract class EntityBoat extends Entity {
     }
 
     public void applyVelocity() {
-        float forceX = -this.getSpeed() * (float) Math.cos(Math.toRadians(this.getRotation() - 90));
-        float forceY = -this.getSpeed() * (float) Math.sin(Math.toRadians(this.getRotation() - 90));
+        if(this.canMove()) {
+            float forceX = -this.getSpeed() * (float) Math.cos(Math.toRadians(this.getRotation() - 90));
+            float forceY = -this.getSpeed() * (float) Math.sin(Math.toRadians(this.getRotation() - 90));
 
-        float delta = Gdx.graphics.getDeltaTime();
+            float delta = Gdx.graphics.getDeltaTime();
 
-        this.getPosition().add(forceX * delta, forceY * delta);
-        this.getLastMovement().set(forceX * delta, forceY * delta);
+            this.getPosition().add(forceX * delta, forceY * delta);
+            this.getLastMovement().set(forceX * delta, forceY * delta);
+        }
+    }
+
+    public boolean canMove() {
+        return true;
     }
 
     public void changeDirection(Direction direction) {
@@ -158,6 +171,21 @@ public abstract class EntityBoat extends Entity {
 
     public void setSpeedAcceleration(float speedAcceleration) {
         this.speedAcceleration = speedAcceleration;
+    }
+
+    public Polygon getPolygonBody() {
+        return polygonBody;
+    }
+
+    public void updatePolygonBody() {
+        this.getPolygonBody().setPosition(this.getPosition().x, this.getPosition().y);
+        this.getPolygonBody().setOrigin(this.getWidth() / 2, this.getHeight() / 2);
+        this.getPolygonBody().setVertices(new float[]{0,0,this.getWidth(),0,this.getWidth(),this.getHeight(),0,this.getHeight()});
+        this.getPolygonBody().setRotation(this.getRotation());
+    }
+
+    public void damage(float damage) {
+        this.setHealth(this.getHealth() - damage);
     }
 
 }

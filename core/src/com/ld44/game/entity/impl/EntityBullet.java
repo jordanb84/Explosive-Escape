@@ -1,12 +1,15 @@
 package com.ld44.game.entity.impl;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
+import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
@@ -24,6 +27,8 @@ public class EntityBullet extends Entity {
 
     private String explosionSpritePath;
 
+    private Sprite sprite;
+
     public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy, String explosionSpritePath) {
         super(map, position, 160);
         this.destination = destination;
@@ -32,6 +37,9 @@ public class EntityBullet extends Entity {
 
         if(enemy) {
             this.setSpeed(this.getSpeed() * 2);
+            this.sprite = Assets.getInstance().getSprite("entity/basicBullet.png");
+        } else {
+            this.sprite = Assets.getInstance().getSprite("entity/playerBullet.png");
         }
 
         this.explosionSpritePath = explosionSpritePath;
@@ -39,7 +47,10 @@ public class EntityBullet extends Entity {
 
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
-        super.render(batch, camera);
+        //super.render(batch, camera);
+        this.sprite.setPosition(this.getPosition().x, this.getPosition().y);
+        this.sprite.setAlpha(0.9f);
+        this.sprite.draw(batch);
     }
 
     @Override

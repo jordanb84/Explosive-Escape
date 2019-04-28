@@ -47,6 +47,7 @@ public class Assets {
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");
         this.loadTexture("entity/small_destroyed.png");
+        this.loadTexture("entity/playerBullet.png");
 
         this.loadTexture("ui/ship_double_small.png");
         this.loadTexture("ui/ship_double_small_hover.png");

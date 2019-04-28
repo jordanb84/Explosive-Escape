@@ -12,6 +12,7 @@ import com.ld44.game.ui.impl.UiStore;
 import com.ld44.game.ui.impl.Unlocks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Hud {
@@ -43,8 +44,6 @@ public class Hud {
 
     private UiStore uiStore;
 
-    private List<Unlocks> unlocks = new ArrayList<Unlocks>();
-
     public Hud(Map map, EntityPlayer player) {
         this.map = map;
         this.player = player;
@@ -60,8 +59,6 @@ public class Hud {
         this.mediumFont = new BitmapFont(Gdx.files.internal("font/greyMedium.fnt"));
 
         this.uiStore = new UiStore(this);
-
-        this.unlocks.add(Unlocks.FRIGATE);
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {

@@ -39,7 +39,7 @@ public class EntityBullet extends Entity {
             this.setSpeed(this.getSpeed() * 2);
             this.sprite = Assets.getInstance().getSprite("entity/basicBullet.png");
         } else {
-            this.sprite = Assets.getInstance().getSprite("entity/playerBullet.png");
+            this.sprite = Assets.getInstance().getSprite("entity/basicBullet.png");
         }
 
         this.explosionSpritePath = explosionSpritePath;

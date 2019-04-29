@@ -20,7 +20,7 @@ public class SingleCannonFrigateShip extends PlayerShip {
         super(map, player);
         player.setSpeed(120);
         player.setMaxSpeed(150);
-        player.setSpeedAcceleration(12);
+        player.setSpeedAcceleration(16);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SingleCannonFrigateShip extends PlayerShip {
 
     @Override
     public float modifyDamage(float damage) {
-        return damage * 4;
+        return damage;
     }
 
     @Override

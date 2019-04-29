@@ -222,14 +222,18 @@ public class Map {
         this.getPlayer().setHealth(1);
         this.getHud().setCash(0);
 
+        this.centerPlayer();
+
+        this.spawnPlayer = true;
+        this.spawnPlayerElapsed = 0;
+    }
+
+    public void centerPlayer() {
         int centerX = mapDefinition.getMapWidth() * mapDefinition.getTileWidth() / 2;
         int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
 
         this.getPlayer().getPosition().set(centerX, centerY);
         this.getPlayer().setSpeed(0);
-
-        this.spawnPlayer = true;
-        this.spawnPlayerElapsed = 0;
     }
 
 }

@@ -161,7 +161,7 @@ public class Map {
         this.player = player;
     }
 
-    public void spawnEnemies() {
+    public void spawnEnemies(boolean medium) {
         int chunkWidth = 512;
         int chunkHeight = 512;
 
@@ -174,14 +174,28 @@ public class Map {
         int enemySpacingWidth = 64;
         int enemySpacingHeight = 64;
 
+        int perChunk = 2;
+
+        if(medium) {
+            perChunk = 1;
+        }
+
         for(int chunkRow = 0; chunkRow < rows; chunkRow++) {
             for(int chunk = 0; chunk < columns; chunk++) {
                 Vector2 chunkPosition = new Vector2(chunk * chunkWidth, chunkRow * chunkHeight);
 
-                for(int enemiesSpawned = 0; enemiesSpawned < 2; enemiesSpawned++) {
+                for(int enemiesSpawned = 0; enemiesSpawned < 1; enemiesSpawned++) {
                     Vector2 position = new Vector2(chunkPosition.x + enemySpacingWidth * enemiesSpawned, chunkPosition.y + (enemySpacingHeight / 2) * enemiesSpawned);
-                    EntityBasicEnemy entityBasicEnemy = new EntityBasicEnemy(this, position);
-                    this.spawnEntity(entityBasicEnemy);
+
+                    EntityEnemy enemy = null;
+
+                    if(medium) {
+                        enemy = new EntityMediumEnemy(this, position);
+                    } else {
+                        enemy = new EntityBasicEnemy(this, position);
+                    }
+
+                    this.spawnEntity(enemy);
                 }
             }
         }

@@ -133,7 +133,7 @@ public class Hud {
     }
 
     public void start() {
-        this.map.spawnEnemies();
+        this.map.spawnEnemies(false);
         this.uiIntro.getStage().dispose();
         Gdx.input.setInputProcessor(this.uiIntro.getStage());
     }

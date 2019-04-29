@@ -92,9 +92,7 @@ public abstract class EntityEnemy extends EntityBoat {
             if(entity instanceof EntityPlayer) {
                 if(this.getBody().overlaps(this.fireRange)) {
                     if(this.elapsedSinceFire >= this.fireInterval){
-                        EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(entity.getPosition()), true, "explosion/small/small_");
-
-                        this.getMap().spawnEntity(bullet);
+                        this.fire(entity);
                         this.elapsedSinceFire = 0;
                     }
 
@@ -172,10 +170,10 @@ public abstract class EntityEnemy extends EntityBoat {
 
         Random random = new Random();
 
-        int crates = random.nextInt(3);
+        int crates = random.nextInt(this.getCratesMax());
 
-        if(crates < 1) {
-            crates = 1;
+        if(crates < this.getCratesMin()) {
+            crates = this.getCratesMin();
         }
 
         for(int crate = 0; crate < crates; crate++) {
@@ -199,6 +197,20 @@ public abstract class EntityEnemy extends EntityBoat {
 
     public void updateFireRange(OrthographicCamera camera) {
         this.fireRange.set(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+    }
+
+    public void fire(Entity entity) {
+        EntityBullet bullet = new EntityBullet(this.getMap(), new Vector2(this.getPosition()), new Vector2(entity.getPosition()), true, "explosion/small/small_");
+
+        this.getMap().spawnEntity(bullet);
+    }
+
+    public int getCratesMax() {
+        return 2;
+    }
+
+    public int getCratesMin() {
+        return 1;
     }
 
 }

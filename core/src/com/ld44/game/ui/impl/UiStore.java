@@ -160,6 +160,8 @@ abstract class StoreButton extends ImageButton {
 
 class StoreButtonDoubleSmall extends StoreButton {
 
+    private boolean bought;
+
     public StoreButtonDoubleSmall(UiStore store, Hud hud, EntityPlayer player) {
         super(store, hud, player,0,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
         this.unlock();
@@ -170,6 +172,11 @@ class StoreButtonDoubleSmall extends StoreButton {
         System.out.println("Bought");
         this.getPlayer().setPlayerShip(new DoubleCannonFrigateShip(this.getPlayer().getMap(), this.getPlayer()));
         this.getStore().unlock(Unlocks.DESTROYER);
+
+        if(!this.bought) {
+            this.getPlayer().getMap().spawnEnemies(true);
+            this.bought = true;
+        }
     }
 
     @Override

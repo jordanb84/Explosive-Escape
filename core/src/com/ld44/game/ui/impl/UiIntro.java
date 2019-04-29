@@ -18,9 +18,7 @@ import com.ld44.game.ui.UiContainer;
 
 public class UiIntro extends UiContainer {
 
-    private String introText = ("We brought you here to loot and plunder as much currency as you're able before dying.\n" +
-            "Your life exists for the sole purpose of generating profit for this organization. If you want your freedom, you'll have to " +
-            "destroy the boss vessel, worth thousands in gold. Good luck! [SPACE to Start]");
+    private String introText;
 
     //Now that that you're here, it seems you deserve a quick explanation.
     //It's unfortunate we had to do this, but times are tough.
@@ -32,9 +30,11 @@ public class UiIntro extends UiContainer {
 
     private Sprite background;
 
-    private boolean active;
+    private boolean active = true;
 
     //add bg based on that grey wall sprite
+
+    private boolean finished;
 
     public UiIntro(Hud hud) {
         super(hud, Skins.Holo_Dark_Hdpi.SKIN, null, false);
@@ -62,6 +62,10 @@ public class UiIntro extends UiContainer {
         //this.getStage().setDebugAll(true);
 
         this.active = true;
+
+        this.introText = ("We brought you here to loot and plunder as much currency as you're able before dying.\n" +
+                "Your life exists for the sole purpose of generating profit for this organization. If you want your freedom, you'll have to " +
+                "destroy the boss vessel, worth thousands in gold. Good luck! [SPACE to Start]");
     }
 
     @Override
@@ -85,11 +89,18 @@ public class UiIntro extends UiContainer {
                     this.active = false;
                     this.getHud().start();
                 }
+
+                this.finished = true;
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 this.active = false;
-                this.getHud().start();
+
+                try {
+                    this.getHud().start();
+                } catch (NullPointerException noHud) {
+
+                }
             }
 
             super.update(camera);
@@ -103,6 +114,30 @@ public class UiIntro extends UiContainer {
 
     public boolean isActive() {
         return this.active;
+    }
+
+    public Label getIntro() {
+        return intro;
+    }
+
+    public void setIntro(Label intro) {
+        this.intro = intro;
+    }
+
+    public void setIntroText(String introText) {
+        this.introText = introText;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void restart() {
+        this.finished = false;
+        this.characters = 0;
+        this.scrollElapsed = 0;
+        this.intro.setText("");
+        this.active = true;
     }
 
 }

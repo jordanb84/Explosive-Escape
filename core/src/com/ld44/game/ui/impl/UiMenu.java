@@ -94,6 +94,7 @@ public class UiMenu extends UiContainer {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        Gdx.input.setInputProcessor(this.getStage());
     }
 
     @Override

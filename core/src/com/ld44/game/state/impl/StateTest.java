@@ -1,6 +1,7 @@
 package com.ld44.game.state.impl;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -65,7 +66,7 @@ public class StateTest extends State {
 
         this.miniMap = new MiniMap(this.map);
 
-        this.hud = new Hud(this.map, player, this.getManager().getHudCamera());
+        this.hud = new Hud(this.getManager(), this.map, player, this.getManager().getHudCamera());
 
         this.map.setHud(this.hud);
     }
@@ -83,6 +84,11 @@ public class StateTest extends State {
         this.map.update(camera);
         this.miniMap.update(camera);
         this.hud.update(camera);
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+            this.getManager().setActiveState("menu");
+            this.map.reset(false);
+        }
     }
 
     @Override

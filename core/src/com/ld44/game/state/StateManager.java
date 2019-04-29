@@ -57,7 +57,6 @@ public class StateManager {
 
     public void setActiveState(String name) {
         this.activeState = this.states.get(name);
-
         /**if(this.resizeWidth > 0 && this.resizeHeight > 0) {
             this.activeState.resize(this.resizeWidth, this.resizeHeight);
         }**/

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
+import com.ld44.game.state.StateManager;
 import com.ld44.game.ui.impl.UiIntro;
 import com.ld44.game.ui.impl.UiStore;
 import com.ld44.game.ui.impl.Unlocks;
@@ -47,7 +48,10 @@ public class Hud {
 
     private UiIntro uiIntro;
 
-    public Hud(Map map, EntityPlayer player, OrthographicCamera hudCamera) {
+    private StateManager stateManager;
+
+    public Hud(StateManager stateManager, Map map, EntityPlayer player, OrthographicCamera hudCamera) {
+        this.stateManager = stateManager;
         this.map = map;
         this.player = player;
         this.barSprite = Assets.getInstance().getSprite("ui/text.png");
@@ -134,7 +138,7 @@ public class Hud {
     public void start() {
         this.map.centerPlayer();
         this.map.spawnEnemies(false);
-        this.uiIntro.getStage().dispose();
+        //this.uiIntro.getStage().dispose();
         Gdx.input.setInputProcessor(this.uiIntro.getStage());
     }
 
@@ -174,5 +178,10 @@ public class Hud {
     }
 
     //is this thing's custom hud camera getting resized?
+
+
+    public StateManager getStateManager() {
+        return stateManager;
+    }
 
 }

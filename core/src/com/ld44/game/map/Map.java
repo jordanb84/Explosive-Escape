@@ -2,6 +2,7 @@ package com.ld44.game.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,9 +13,11 @@ import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.entity.impl.*;
 import com.ld44.game.ship.impl.SingleCannonFrigateShip;
 import com.ld44.game.ui.Hud;
+import com.ld44.game.ui.impl.UiOutro;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map {
 
@@ -39,6 +42,12 @@ public class Map {
 
     private Sprite destroyedPlayer;
 
+    private boolean won;
+
+    private BitmapFont font;
+
+    private UiOutro outro;
+
     public Map(List<MapLayer> tileLayers, MapDefinition mapDefinition, List<Entity> entities) {
         this.tileLayers = tileLayers;
         this.mapDefinition = mapDefinition;
@@ -46,6 +55,9 @@ public class Map {
         this.crosshair = Assets.getInstance().getSprite("crosshair/crosshair6.png");
         this.crosshair.setAlpha(0.8f);
         this.hud = hud;
+
+        this.font = new BitmapFont(Gdx.files.internal("font/shadow4.fnt"));
+        this.outro = new UiOutro(this.hud, this);
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -65,7 +77,7 @@ public class Map {
             }
         }
 
-        if(this.spawnPlayer) {
+        if(this.spawnPlayer && this.destroyedPlayer != null) {
             this.destroyedPlayer.draw(batch);
         }
 
@@ -81,9 +93,19 @@ public class Map {
 
         this.crosshair.setPosition(mousePosition.x - this.crosshair.getWidth() / 2, mousePosition.y - this.crosshair.getHeight() / 2);
         this.crosshair.draw(batch);
+
+        if(this.won) {
+            //this.font.draw(batch, "You win!", camera.position.x - 70, camera.position.y);
+
+            this.outro.render(batch);
+        }
     }
 
     public void update(OrthographicCamera camera) {
+        if(this.won) {
+            this.outro.update(camera);
+        }
+
         for(MapLayer tileLayer : this.getTileLayers()) {
             tileLayer.update();
         }
@@ -109,6 +131,32 @@ public class Map {
 
         for(Entity entity : this.entities) {
             entity.update(camera);
+        }
+    }
+
+    public void win(Vector2 position, OrthographicCamera camera) {
+        this.won = true;
+
+        this.hud.modifyCash(40000 + new Random().nextInt(11584));
+
+        int rows = 8;
+        int columns = 15;
+
+        Vector2 spread = new Vector2(700, 700);
+
+        String spritePath = ("explosion/nine/nine_");
+        String spritePathMedium = ("explosion/medium/medium_");
+
+        List<EntityExplosion> explosions = this.generateExplosionBall(rows, columns, new Vector2(camera.position.x - camera.viewportWidth + camera.viewportWidth / 4, camera.position.y - camera.viewportHeight + camera.viewportHeight / 8), spread, spritePath);
+        List<EntityExplosion> explosionsMedium = this.generateExplosionBall(rows, columns, new Vector2(camera.position.x - camera.viewportWidth + camera.viewportWidth / 4, camera.position.y - camera.viewportHeight + camera.viewportHeight / 8), spread, spritePathMedium);
+
+        explosions.addAll(explosionsMedium);
+
+        Random random = new Random();
+
+        for(EntityExplosion explosion : explosions) {
+            explosion.setDelay(random.nextFloat() * 6);
+            this.spawnEntity(explosion);
         }
     }
 
@@ -209,10 +257,14 @@ public class Map {
 
     }
 
-    public void reset() {
-        this.destroyedPlayer = this.getPlayer().getPlayerShip().getDestroyedSprite();
-        this.destroyedPlayer.setRotation(this.getPlayer().getRotation());
-        this.destroyedPlayer.setPosition(this.getPlayer().getPosition().x, this.getPlayer().getPosition().y);
+    public void reset(boolean destroyPlayer) {
+        this.despawnEntity(this.getPlayer());
+
+        if(destroyPlayer) {
+            this.destroyedPlayer = this.getPlayer().getPlayerShip().getDestroyedSprite();
+            this.destroyedPlayer.setRotation(this.getPlayer().getRotation());
+            this.destroyedPlayer.setPosition(this.getPlayer().getPosition().x, this.getPlayer().getPosition().y);
+        }
 
         EntityPlayer replacementPlayer = new EntityPlayer(this, new Vector2());
 
@@ -226,6 +278,18 @@ public class Map {
 
         this.spawnPlayer = true;
         this.spawnPlayerElapsed = 0;
+
+        if(!destroyPlayer) {
+            this.spawnPlayerElapsed = 2.5f;
+        }
+
+        for(Entity entity : this.getEntities()) {
+            if(entity instanceof EntityEnemy || entity instanceof EntityBullet || entity instanceof EntityDestroyed || entity instanceof EntityCrate) {
+                this.despawnEntity(entity);
+            }
+        }
+
+        this.spawnEnemies(false);
     }
 
     public void centerPlayer() {
@@ -234,6 +298,41 @@ public class Map {
 
         this.getPlayer().getPosition().set(centerX, centerY);
         this.getPlayer().setSpeed(0);
+    }
+
+    public List<EntityExplosion> generateExplosionBall(int rows, int columns, Vector2 position, Vector2 spread, String spritePath) {
+        List<EntityExplosion> explosions = new ArrayList<EntityExplosion>();
+
+        Random random = new Random();
+
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                int offX = random.nextInt((int) spread.x);
+                int offY = random.nextInt((int) spread.y);
+
+                if (offX < spread.x / 2) {
+                    offX = (int) spread.x / 2;
+                }
+
+                if (offY < spread.y / 2) {
+                    offY = (int) spread.y / 2;
+                }
+
+                Vector2 offset = new Vector2(offX, offY);
+
+                Vector2 offsetPosition = new Vector2(position.x + offset.x, position.y + offset.y);
+
+                EntityExplosion explosion = new EntityExplosion(this, offsetPosition, null, spritePath);
+
+                explosions.add(explosion);
+            }
+        }
+
+        return explosions;
+    }
+
+    public void setWon(boolean won) {
+        this.won = won;
     }
 
 }

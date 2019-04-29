@@ -19,6 +19,12 @@ public class EntityExplosion extends Entity {
 
     private Entity hitEntity;
 
+    private float delay;
+
+    private boolean hasDelay;
+
+    private float delayElapsed;
+
     public EntityExplosion(Map map, Vector2 position, Entity hitEntity, String spritePath) {
         super(map, position, 0);
         this.hitEntity = hitEntity;
@@ -44,27 +50,45 @@ public class EntityExplosion extends Entity {
 
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
-        this.getActiveSprite().setPosition(this.getPosition().x, this.getPosition().y);
-        this.getActiveSprite().setAlpha(0.8f);
-        this.getActiveSprite().draw(batch);
+        if(!this.hasDelay) {
+            this.getActiveSprite().setPosition(this.getPosition().x, this.getPosition().y);
+            this.getActiveSprite().setAlpha(0.8f);
+            this.getActiveSprite().draw(batch);
+        }
     }
 
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
         //this.getActiveSprite().setRotation(this.hitEntity.getActiveSprite().getRotation());
-        this.getActiveAnimation().update();
+        if(this.hasDelay) {
+            this.delayElapsed += 1 * Gdx.graphics.getDeltaTime();
 
-        if(this.getActiveAnimation().isFinished()) {
-            this.getMap().despawnEntity(this);
+            if(this.delayElapsed >= this.delay) {
+                this.hasDelay = false;
+            }
+        } else {
+            this.getActiveAnimation().update();
+
+            if(this.getActiveAnimation().isFinished()) {
+                this.getMap().despawnEntity(this);
+            }
+
+            if(this.hitEntity != null) {
+                this.getPosition().add(this.hitEntity.getLastMovement().x, this.hitEntity.getLastMovement().y);
+            }
         }
 
-        this.getPosition().add(this.hitEntity.getLastMovement().x, this.hitEntity.getLastMovement().y);
     }
 
     @Override
     public DirectionalAnimation createAnimation() {
         return null;
+    }
+
+    public void setDelay(float delay) {
+        this.delay = delay;
+        this.hasDelay = true;
     }
 
 }

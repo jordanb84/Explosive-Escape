@@ -213,7 +213,7 @@ class StoreButtonDoubleSmall extends StoreButton {
 class StoreButtonBoss extends StoreButton {
 
     public StoreButtonBoss(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player, 60, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
+        super(store, hud, player, 2, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
         //this.unlock();
     }
 

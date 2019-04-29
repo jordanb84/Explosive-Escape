@@ -1,6 +1,7 @@
 package com.ld44.game.entity.impl;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -36,8 +37,7 @@ public class EntityBoss extends EntityEnemy {
 
     private String rocketExplosion = ("explosion/large/rocket_");
 
-    //shoot rockets, lots of damage
-    //shoot more or something, maybe start flashing too when low hp (50%)
+    private OrthographicCamera camera;
 
     public EntityBoss(Map map, Vector2 position) {
         super(1000, map, position, 60, 70, 4, 50);
@@ -56,6 +56,12 @@ public class EntityBoss extends EntityEnemy {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        this.camera = camera;
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
+            this.die();
+        }
+
         for(IntervalBurst burst : this.bursts) {
             burst.update();
         }
@@ -146,14 +152,21 @@ public class EntityBoss extends EntityEnemy {
 
     @Override
     public void damage(float amount) {
-        System.out.println("Old hp " + this.getHealth());
+        //System.out.println("Old hp " + this.getHealth());
         this.setHealth(this.getHealth() - amount / 10);
-        System.out.println("New hp " + this.getHealth());
+        //System.out.println("New hp " + this.getHealth());
     }
 
     @Override
     public void updateFireRange(OrthographicCamera camera) {
         this.getFireRange().set(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        Vector2 pos = new Vector2(this.getPolygonBody().getX(), this.getPolygonBody().getY());
+        this.getMap().win(new Vector2(pos.x - this.getWidth() / 2, pos.y - this.getHeight() / 2), this.camera);
     }
 
 }

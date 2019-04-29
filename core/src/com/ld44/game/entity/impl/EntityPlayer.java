@@ -41,6 +41,13 @@ public class EntityPlayer extends EntityBoat {
         this.getActiveSprite().setPosition(this.getPosition().x, this.getPosition().y);
         this.getActiveSprite().setRotation(this.getRotation());
         this.getActiveSprite().draw(batch);
+
+        Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePosition);
+
+        /**this.getActiveSprite().setAlpha(0.3f);
+        this.getActiveSprite().setPosition(mousePosition.x, mousePosition.y);
+        this.getActiveSprite().draw(batch);**/
     }
 
     @Override
@@ -73,6 +80,7 @@ public class EntityPlayer extends EntityBoat {
                 Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
                 camera.unproject(mousePosition);
 
+                //System.out.println("Mouse pos " + mousePosition.x + "/" + mousePosition.y);
                 this.playerShip.fire(new Vector2(mousePosition.x, mousePosition.y));
 
                 this.fireElapsed = 0;
@@ -166,7 +174,7 @@ public class EntityPlayer extends EntityBoat {
     @Override
     public void die() {
         super.die();
-        this.getMap().reset();
+        this.getMap().reset(true);
     }
 
     public PlayerShip getPlayerShip() {

@@ -18,7 +18,7 @@ public class SingleCannonFrigateShip extends PlayerShip {
 
     public SingleCannonFrigateShip(Map map, EntityPlayer player) {
         super(map, player);
-        player.setSpeed(120);
+        //player.setSpeed(120);
         player.setMaxSpeed(150);
         player.setSpeedAcceleration(16);
     }

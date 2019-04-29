@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.state.StateManager;
 import com.ld44.game.state.editor.StateEditor;
+import com.ld44.game.state.impl.StateMenu;
 import com.ld44.game.state.impl.StateTest;
 
 public class Game extends ApplicationAdapter {
@@ -61,7 +62,8 @@ public class Game extends ApplicationAdapter {
 
 		this.stateManager.registerState("test", new StateTest(this.stateManager));
 		this.stateManager.registerState("editor", new StateEditor(this.stateManager));
-		this.stateManager.setActiveState("test");
+		this.stateManager.registerState("menu", new StateMenu(this.stateManager));
+		this.stateManager.setActiveState("menu");
 
 		this.loaded = true;
 	}

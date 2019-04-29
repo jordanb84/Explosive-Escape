@@ -39,4 +39,8 @@ public class StateManager {
         this.activeState = this.states.get(name);
     }
 
+    public void setActiveState(State state) {
+        this.activeState = state;
+    }
+
 }

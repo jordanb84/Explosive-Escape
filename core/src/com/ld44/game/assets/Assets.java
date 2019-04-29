@@ -78,6 +78,8 @@ public class Assets {
 
         this.loadTexture("crosshair/crosshair6.png");
 
+        this.loadTexture("ui/menu.png");
+
         this.assetManager.load("skin/holo/Holo-dark-hdpi.json", Skin.class);
 
         this.assetManager.load("skin/arcade/arcade-ui.json", Skin.class);

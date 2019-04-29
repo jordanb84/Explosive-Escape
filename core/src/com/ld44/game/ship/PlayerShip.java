@@ -9,6 +9,7 @@ import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class PlayerShip {
 
@@ -18,15 +19,19 @@ public abstract class PlayerShip {
 
     private DirectionalAnimation animation;
 
+    private Random random;
+
     public PlayerShip(Map map, EntityPlayer player) {
         this.map = map;
         this.player = player;
         this.animation = this.createAnimation();
         this.player.setHealth(1);
+        this.random = new Random();
     }
 
     public void fire(Vector2 destination) {
         for(EntityBullet bullet : this.generateBulletsForPosition(destination)) {
+            bullet.getPosition().add(this.random.nextInt(20), 0);
             this.map.spawnEntity(bullet);
         }
     }

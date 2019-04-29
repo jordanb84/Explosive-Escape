@@ -26,6 +26,10 @@ public class EntityPlayer extends EntityBoat {
 
     private PlayerShip playerShip;
 
+    private float fireInterval = 0.1f;
+
+    private float fireElapsed = fireInterval;
+
     public EntityPlayer(Map map, Vector2 position) {
         super(map, position, 120, 150, 8, 50);
         this.setPlayerShip(new SingleCannonFrigateShip(map, this));
@@ -42,11 +46,41 @@ public class EntityPlayer extends EntityBoat {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(mousePosition);
+        this.fireElapsed += 1 * Gdx.graphics.getDeltaTime();
 
-            this.playerShip.fire(new Vector2(mousePosition.x, mousePosition.y));
+        int[] fireKeys = {Input.Keys.SPACE, Input.Keys.E, Input.Keys.F, Input.Keys.J, Input.Keys.K, Input.Keys.R};
+
+        boolean firing = false;
+
+        boolean fireQuick = false;
+
+        for(int fireKey : fireKeys) {
+            if(Gdx.input.isKeyPressed(fireKey)) {
+                firing = true;
+            }
+
+            if(Gdx.input.isKeyJustPressed(fireKey)) {
+                fireQuick = true;
+            }
+        }
+
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            firing = true;
+        }
+
+        if(firing) {
+            if(this.fireElapsed >= this.fireInterval) {
+                Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+                camera.unproject(mousePosition);
+
+                this.playerShip.fire(new Vector2(mousePosition.x, mousePosition.y));
+
+                this.fireElapsed = 0;
+            }
+        }
+
+        if(fireQuick) {
+            this.fireElapsed = this.fireInterval;
         }
 
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -54,19 +88,19 @@ public class EntityPlayer extends EntityBoat {
 
         //this.pointAt(new Vector2(mousePosition.x, mousePosition.y));
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.changeDirection(Direction.UP);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.changeDirection(Direction.DOWN);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.changeDirection(Direction.RIGHT);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.changeDirection(Direction.LEFT);
         }
 

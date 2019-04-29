@@ -75,7 +75,7 @@ public class Hud {
         }**/
 
         if(!this.uiIntro.isActive()) {
-            this.textSprite.setPosition(camera.viewportWidth / 2 - this.barSprite.getWidth() / 2, camera.viewportHeight - this.barSprite.getHeight());
+            this.textSprite.setPosition(camera.viewportWidth - this.barSprite.getWidth() - 10, camera.viewportHeight - this.barSprite.getHeight());
 
             this.barSprite.setPosition(this.textSprite.getX(), this.textSprite.getY() - this.barSprite.getHeight());
             //this.barSprite.draw(batch);
@@ -110,6 +110,15 @@ public class Hud {
 
             font.draw(batch, "Balance", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 10, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 5);
             font.draw(batch, cash, this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 2, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
+
+            this.textSprite.setPosition(10, this.textSprite.getY());
+            this.barSprite.setPosition(10, this.barSprite.getY());
+
+            this.textSprite.draw(batch);
+            this.barSprite.draw(batch);
+
+            this.mediumFont.draw(batch, "Speed", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 22, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 4);
+            this.mediumFont.draw(batch, "" + (int) this.getPlayer().getSpeed() + "M/s", this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 4, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
 
             this.uiStore.render(batch);
 

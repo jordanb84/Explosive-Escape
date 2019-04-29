@@ -47,14 +47,14 @@ public class UiMenu extends UiContainer {
 
         TextButton controlsButton = new TextButton("Controls", this.getDefaultSkin());
 
-        String controls = ("Accelerate/Decelerate: W/S or UP/DOWN" + "\nTurn: A/D or LEFT/RIGHT" + "\nFire: F, SPACE, J or Left Click");
+        String controls = ("Accelerate/Decelerate: W/S or UP/DOWN" + "\nTurn: A/D or LEFT/RIGHT" + "\nFire: Hold either F, SPACE, J or Left Click");
 
         TextTooltip controlsTooltip = new TextTooltip(controls, Skins.Arcade.SKIN);
         controlsTooltip.setInstant(true);
 
         controlsButton.addListener(controlsTooltip);
 
-        TextButton creditsButton = new TextButton("Controls", this.getDefaultSkin());
+        TextButton creditsButton = new TextButton("Credits", this.getDefaultSkin());
 
         String credits = ("Written in 72 hours by exilegl (jordanb84)");
         credits += ("\n\nArt from OpenGameArt.org by these users:");
@@ -68,11 +68,26 @@ public class UiMenu extends UiContainer {
 
         creditsButton.addListener(creditsTooltip);
 
-        this.getRootTable().add(startButton).center();
+        TextButton exitButton = new TextButton("Exit", this.getDefaultSkin());
+
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.exit(0);
+            }
+        });
+
+        //startButton.setSize(50, 50);
+
+
+        this.getRootTable().add(startButton).center().fillX();
         this.getRootTable().row();
-        this.getRootTable().add(controlsButton).center();
+        this.getRootTable().add(controlsButton).center().fillX();
         this.getRootTable().row();
-        this.getRootTable().add(creditsButton).center();
+        this.getRootTable().add(creditsButton).center().fillX();
+        this.getRootTable().row();
+        this.getRootTable().add(exitButton).center().fillX();
     }
 
     @Override

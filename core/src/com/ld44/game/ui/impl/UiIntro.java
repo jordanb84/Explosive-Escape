@@ -70,9 +70,14 @@ public class UiIntro extends UiContainer {
             this.scrollElapsed += 1 * Gdx.graphics.getDeltaTime();
 
             if (this.scrollElapsed >= 0.06f && this.characters < this.introText.length()) {
-                this.intro.setText(this.intro.getText().toString() + this.introText.toCharArray()[this.characters]);
+                this.intro.setText(this.intro.getText().replace("|", ""));
+                this.intro.setText(this.intro.getText().toString() + this.introText.toCharArray()[this.characters] + "|");
                 this.characters++;
                 this.scrollElapsed = 0;
+
+                if(this.characters == this.introText.length()) {
+                    this.intro.setText(this.intro.getText().replace("|", ""));
+                }
             }
 
             if (this.characters >= this.introText.length()) {

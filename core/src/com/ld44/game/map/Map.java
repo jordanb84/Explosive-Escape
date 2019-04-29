@@ -9,10 +9,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
-import com.ld44.game.entity.impl.EntityBasicEnemy;
-import com.ld44.game.entity.impl.EntityBoss;
-import com.ld44.game.entity.impl.EntityDestroyed;
-import com.ld44.game.entity.impl.EntityPlayer;
+import com.ld44.game.entity.impl.*;
+import com.ld44.game.ship.impl.SingleCannonFrigateShip;
 import com.ld44.game.ui.Hud;
 
 import java.util.ArrayList;
@@ -56,7 +54,13 @@ public class Map {
         }
 
         for(Entity entity : this.getEntities()) {
-            if(!(entity instanceof EntityDestroyed)) {
+            if(!(entity instanceof EntityDestroyed) && !(entity instanceof EntityCrate)) {
+                entity.render(batch, camera);
+            }
+        }
+
+        for(Entity entity : this.getEntities()) {
+            if(entity instanceof EntityCrate) {
                 entity.render(batch, camera);
             }
         }
@@ -169,5 +173,6 @@ public class Map {
         }
 
     }
+
 
 }

@@ -44,6 +44,7 @@ public class Assets {
         this.loadTexture("entity/basicBulletPink.png");
         this.loadTexture("radar.png");
         this.loadTexture("tile/water5.png");
+        this.loadTexture("entity/box_small.png");
 
         this.loadTexture("entity/large_destroyed.png");
 

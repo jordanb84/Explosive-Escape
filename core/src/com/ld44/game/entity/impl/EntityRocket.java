@@ -60,7 +60,7 @@ public class EntityRocket extends EntityBullet {
     }
 
     @Override
-    public void moveTowardDestination() {
+    public void moveTowardDestination(Vector2 destination, float threshold) {
 
     }
 

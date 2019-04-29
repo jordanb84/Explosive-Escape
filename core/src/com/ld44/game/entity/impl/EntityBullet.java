@@ -15,6 +15,8 @@ import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.map.Map;
 
+import java.util.Random;
+
 public class EntityBullet extends Entity {
 
     private Vector2 destination;
@@ -79,7 +81,7 @@ public class EntityBullet extends Entity {
         }
 
         if(this.shouldMove) {
-            this.moveTowardDestination();
+            this.moveTowardDestination(this.destination, this.threshold);
         }
 
         boolean hit = false;
@@ -122,65 +124,6 @@ public class EntityBullet extends Entity {
         if(this.getBody().overlaps(this.destinationBody)) {
             this.getMap().despawnEntity(this);
         }
-    }
-
-    public void moveTowardDestination() {
-        Vector2 force = new Vector2();
-
-        if(this.getPosition().x < this.destination.x) {
-            force.add(this.getSpeed(), 0);
-        }
-
-        if(this.getPosition().x > this.destination.x) {
-            force.add(-this.getSpeed(), 0);
-        }
-
-        if(this.getPosition().y < this.destination.y) {
-            force.add(0, this.getSpeed());
-        }
-
-        if(this.getPosition().y > this.destination.y) {
-            force.add(0, -this.getSpeed());
-        }
-
-        float delta = Gdx.graphics.getDeltaTime();
-
-        Vector2 difference = new Vector2(this.getPosition().x - this.destination.x, this.getPosition().y - this.destination.y);
-
-        difference.set(Math.abs(difference.x), Math.abs(difference.y));
-
-        if(difference.x > difference.y) {
-            float percentage = (difference.x) / difference.y;
-            float percentageFloat = percentage / 100;
-
-            force.y = force.y + force.y * percentageFloat;
-            //System.out.println("P=" + percentage + " Modifying Y by " + percentageFloat + "x");
-        }
-
-        if(difference.y > difference.x) {
-            float percentage = (difference.x) / difference.y;
-            float percentageFloat = percentage / 100;
-
-            force.x = force.x + force.x * percentageFloat;
-
-
-            //System.out.println("P=" + percentage + " Modifying X by " + percentageFloat + "x");
-        }
-
-        if(Math.abs(difference.x) < this.threshold) {
-            force.x = 0;
-        }
-
-        if(Math.abs(difference.y) < this.threshold) {
-            force.y = 0;
-        }
-
-        float moveX = force.x * delta;
-        float moveY = force.y * delta;
-
-        //System.out.println("Moving by " + moveX + "/" + moveY);
-
-        this.getPosition().add(force.x * delta, force.y * delta);
     }
 
     @Override

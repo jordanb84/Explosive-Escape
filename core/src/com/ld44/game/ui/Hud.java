@@ -151,4 +151,8 @@ public class Hud {
         return cash;
     }
 
+    public void setCash(int cash) {
+        this.cash = cash;
+    }
+
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.entity.EntityBoat;
 import com.ld44.game.entity.impl.EntityBullet;
+import com.ld44.game.entity.impl.EntityCrate;
 import com.ld44.game.entity.impl.EntityDestroyed;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
@@ -159,15 +160,31 @@ public abstract class EntityEnemy extends EntityBoat {
     @Override
     public void die() {
         super.die();
-        int reward = new Random().nextInt(this.value);
+        /**int reward = new Random().nextInt(this.value);
 
         if(reward < this.value / 2) {
             reward = this.value / 2;
         }
 
-        this.getMap().getHud().modifyCash(reward);
+        this.getMap().getHud().modifyCash(reward);**/
 
         this.getMap().spawnEntity(new EntityDestroyed(this.getMap(), new Vector2(this.getPosition()), this.getDestroyedSprite(), this.getRotation()));
+
+        Random random = new Random();
+
+        int crates = random.nextInt(3);
+
+        if(crates < 1) {
+            crates = 1;
+        }
+
+        for(int crate = 0; crate < crates; crate++) {
+            Vector2 position = new Vector2(this.getPosition().x + crate * random.nextInt(20) + 20, this.getPosition().y + crate * random.nextInt(20) + 15);
+            EntityCrate entityCrate = new EntityCrate(this.getMap(), position);
+
+            this.getMap().spawnEntity(entityCrate);
+        }
+
     }
 
     public abstract Sprite getDestroyedSprite();

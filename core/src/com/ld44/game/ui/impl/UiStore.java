@@ -243,6 +243,7 @@ class StoreButtonDoubleSmall extends StoreButton {
     @Override
     public void resetLock() {
         this.setLocked(false);
+        this.bought = false;
     }
 
 }

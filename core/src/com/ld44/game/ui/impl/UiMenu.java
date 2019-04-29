@@ -62,11 +62,17 @@ public class UiMenu extends UiContainer {
         TextButton creditsButton = new TextButton("Credits", this.getDefaultSkin());
 
         String credits = ("Written in 72 hours by exilegl (jordanb84)");
-        credits += ("\n\nArt from OpenGameArt.org by these users:");
+        credits += ("\n\n\nAssets from OpenGameArt.org by these users:\n");
         credits += ("\nChabull: Ships, HUD, Explosions (CC-BY 3.0)");
         credits += ("\nQubodup: Water (CC0)");
         credits += ("\nHc: Crosshairs (CC0)");
         credits += ("\nMaster484: Bullets (CC0)");
+        credits += ("\n\nSFX/Music:");
+        credits += ("\nJoth: Explosion (CC0)");
+        credits += ("\nMvrasseli: Main Music (CC-BY 3.0)");
+        credits += ("\nYd: Boss Music (CC0)");
+        credits += ("\nQubodup: Click sound 1 (CC0)");
+        //credits += ("\nThemightyglider: Click sound 2 (CC0)");
 
         TextTooltip creditsTooltip = new TextTooltip(credits, Skins.Arcade.SKIN);
         creditsTooltip.setInstant(true);

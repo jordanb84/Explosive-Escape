@@ -4,7 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.ld44.game.assets.Assets;
 
 public enum SoundEffectType {
-    Chunky_Explosion("audio/chunky_explosion.mp3"), Click("audio/click.ogg"),
+    Chunky_Explosion("audio/chunky_explosion.mp3"), Click("audio/crash.ogg"),
     Crash("audio/crash.ogg")
     ;
 

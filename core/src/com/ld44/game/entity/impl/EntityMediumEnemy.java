@@ -56,7 +56,7 @@ public class EntityMediumEnemy extends EntityEnemy {
 
     @Override
     public void damage(float damage) {
-        this.setHealth(this.getHealth() - damage / 4);
+        this.setHealth(this.getHealth() - damage / 8);
     }
 
     @Override

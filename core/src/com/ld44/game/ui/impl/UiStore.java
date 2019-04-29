@@ -1,5 +1,7 @@
 package com.ld44.game.ui.impl;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -25,7 +27,7 @@ public class UiStore extends UiContainer {
     private HashMap<Unlocks, StoreButton> unlocks;
 
     public UiStore(Hud hud) {
-        super(hud, Skins.Holo_Dark_Hdpi.SKIN, null);
+        super(hud, Skins.Holo_Dark_Hdpi.SKIN, null, true);
     }
 
     @Override
@@ -49,12 +51,19 @@ public class UiStore extends UiContainer {
         this.unlocks.put(Unlocks.FRIGATE, doubleSmall);
         this.unlocks.put(Unlocks.DESTROYER, doubleMedium);
         this.unlocks.put(Unlocks.BOSS, boss);
+
+        //this.getStage().setDebugAll(true);
     }
 
     public void unlock(Unlocks unlock) {
         this.unlocks.get(unlock).unlock();
     }
 
+    @Override
+    public void update(OrthographicCamera camera) {
+        super.update(camera);
+        Gdx.input.setInputProcessor(this.getStage());
+    }
 }
 
 abstract class StoreButton extends ImageButton {
@@ -75,6 +84,8 @@ abstract class StoreButton extends ImageButton {
 
     private TextTooltip tooltip;
 
+    private String noLock;
+
     public StoreButton(UiStore store, final Hud hud, EntityPlayer player, final int price, String imageUp, String imageDown, String imageHover, String imageUpLocked, String imageDownLocked, String imageHoverLocked) {
         super(new SpriteDrawable(Assets.getInstance().getSprite(imageUpLocked)), new SpriteDrawable(Assets.getInstance().getSprite(imageDownLocked)));
         this.getStyle().imageOver = new SpriteDrawable(Assets.getInstance().getSprite(imageHoverLocked));
@@ -85,6 +96,8 @@ abstract class StoreButton extends ImageButton {
         this.unlockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDown));
         this.unlockedHover = new SpriteDrawable(Assets.getInstance().getSprite(imageHover));
 
+        this.noLock = this.getName() + "\n(" + this.getDescription() + ")\n- Cost: " + this.getPrice();
+
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -93,6 +106,7 @@ abstract class StoreButton extends ImageButton {
                 if(hud.getCash() >= price) {
                     if(!locked) {
                         hud.modifyCash(-price);
+                        tooltip.getActor().setText(noLock);
                         paid();
                     }
                 }
@@ -101,7 +115,7 @@ abstract class StoreButton extends ImageButton {
 
         this.price = price;
 
-        this.tooltip = new TextTooltip(this.getLockedText() + "\n" + this.getName() + "\n(" + this.getDescription() + ")\n- Cost: " + this.getPrice(), Skins.Arcade.SKIN);
+        this.tooltip = new TextTooltip(this.getLockedText() + "\n" + noLock, Skins.Arcade.SKIN);
         this.tooltip.setInstant(true);
         this.addListener(this.tooltip);
 
@@ -145,7 +159,7 @@ abstract class StoreButton extends ImageButton {
 class StoreButtonDoubleSmall extends StoreButton {
 
     public StoreButtonDoubleSmall(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,30,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
+        super(store, hud, player,0,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
         this.unlock();
     }
 
@@ -175,12 +189,14 @@ class StoreButtonDoubleSmall extends StoreButton {
 class StoreButtonBoss extends StoreButton {
 
     public StoreButtonBoss(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player, 124, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
+        super(store, hud, player, 30, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
+        //this.unlock();
     }
 
     @Override
     public void paid() {
-        this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
+        this.getStore().getHud().getPlayer().getMap().startBossBattle();
+        //this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
     }
 
     @Override
@@ -203,7 +219,7 @@ class StoreButtonBoss extends StoreButton {
 class StoreButtonDoubleMedium extends StoreButton {
 
     public StoreButtonDoubleMedium(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,58,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
+        super(store, hud, player,0,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
     }
 
     @Override

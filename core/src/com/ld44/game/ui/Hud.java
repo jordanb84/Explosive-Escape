@@ -125,11 +125,16 @@ public class Hud {
 
     public void start() {
         this.map.spawnEnemies();
+        this.uiIntro.getStage().dispose();
+        Gdx.input.setInputProcessor(this.uiIntro.getStage());
     }
 
     public void update(OrthographicCamera camera) {
         this.uiIntro.update(camera);
-        this.uiStore.update(camera);
+
+        if(!this.uiIntro.isActive()) {
+            this.uiStore.update(camera);
+        }
     }
 
     public void modifyCash(int amount) {

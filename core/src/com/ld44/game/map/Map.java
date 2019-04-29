@@ -10,6 +10,7 @@ import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.entity.impl.EntityBasicEnemy;
+import com.ld44.game.entity.impl.EntityBoss;
 import com.ld44.game.entity.impl.EntityDestroyed;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.ui.Hud;
@@ -84,6 +85,26 @@ public class Map {
         for(Entity entity : this.entities) {
             entity.update(camera);
         }
+    }
+
+    public void startBossBattle() {
+        int centerX = mapDefinition.getMapWidth() * mapDefinition.getTileWidth() / 2;
+        int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
+
+        this.getPlayer().setHealth(1);
+        this.getPlayer().getPosition().set(centerX, centerY);
+
+        for(Entity entity : this.getEntities()) {
+            if(!(entity instanceof EntityPlayer)) {
+                this.despawnEntity(entity);
+            }
+        }
+
+        this.getPlayer().setSpeed(0);
+
+        EntityBoss boss = new EntityBoss(this, new Vector2(centerX + 100, centerY + 150));
+
+        this.spawnEntity(boss);
     }
 
     public void spawnEntity(Entity entity) {

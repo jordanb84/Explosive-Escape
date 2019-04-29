@@ -37,7 +37,7 @@ public class UiIntro extends UiContainer {
     //add bg based on that grey wall sprite
 
     public UiIntro(Hud hud) {
-        super(hud, Skins.Holo_Dark_Hdpi.SKIN, null);
+        super(hud, Skins.Holo_Dark_Hdpi.SKIN, null, false);
     }
 
     @Override

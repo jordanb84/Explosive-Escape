@@ -20,7 +20,7 @@ public abstract class UiContainer {
 
     private Hud hud;
 
-    public UiContainer(Hud hud, Skin defaultSkin, StateManager stateManager) {
+    public UiContainer(Hud hud, Skin defaultSkin, StateManager stateManager, boolean takeInput) {
         this.defaultSkin = defaultSkin;
 
         this.rootTable = new Table();
@@ -36,7 +36,9 @@ public abstract class UiContainer {
 
         this.rootStage.addActor(this.rootTable);
 
-        Gdx.input.setInputProcessor(this.rootStage);
+        if(takeInput) {
+            Gdx.input.setInputProcessor(this.rootStage);
+        }
     }
 
     public void render(SpriteBatch batch) {

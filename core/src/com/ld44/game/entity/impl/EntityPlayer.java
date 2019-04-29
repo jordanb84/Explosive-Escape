@@ -28,7 +28,7 @@ public class EntityPlayer extends EntityBoat {
 
     public EntityPlayer(Map map, Vector2 position) {
         super(map, position, 120, 150, 8, 50);
-        this.setPlayerShip(new DoubleCannonDestroyerShip(map, this));
+        this.setPlayerShip(new SingleCannonFrigateShip(map, this));
     }
 
     @Override

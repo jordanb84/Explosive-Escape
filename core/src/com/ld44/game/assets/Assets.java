@@ -80,6 +80,8 @@ public class Assets {
 
         this.loadTexture("ui/menu.png");
 
+        this.loadTexture("entity/basicBulletGreen.png");
+
         this.assetManager.load("skin/holo/Holo-dark-hdpi.json", Skin.class);
 
         this.assetManager.load("skin/arcade/arcade-ui.json", Skin.class);

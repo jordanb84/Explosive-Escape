@@ -88,6 +88,12 @@ public class EntityPlayer extends EntityBoat {
 
         //this.pointAt(new Vector2(mousePosition.x, mousePosition.y));
 
+        float maxY = 7243;
+
+        /**if(this.getPosition().y > maxY) {
+            this.setSpeed(0);
+        }**/
+
         if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.changeDirection(Direction.UP);
         }
@@ -103,6 +109,8 @@ public class EntityPlayer extends EntityBoat {
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.changeDirection(Direction.LEFT);
         }
+
+        System.out.println(this.getPosition().x + "/" + this.getPosition().y);
 
         camera.position.set(this.getPosition().x + this.getWidth() / 2, this.getPosition().y + this.getHeight() / 2, 0);
         camera.update();

@@ -61,7 +61,7 @@ public class MapLayer {
             }
         }
 
-        System.out.println(drawn);
+        //System.out.println(drawn);
     }
 
     public void update() {

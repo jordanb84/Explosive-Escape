@@ -71,6 +71,22 @@ public abstract class EntityBoat extends Entity {
             float forceX = -this.getSpeed() * (float) Math.cos(Math.toRadians(this.getRotation() - 90));
             float forceY = -this.getSpeed() * (float) Math.sin(Math.toRadians(this.getRotation() - 90));
 
+            if(this.getPosition().y > 7243 && forceY > 0) {
+                forceY = 0;
+            }
+
+            if(this.getPosition().y < 200 && forceY < 0) {
+                forceY = 0;
+            }
+
+            if(this.getPosition().x > 9700 && forceX > 0) {
+                forceX = 0;
+            }
+
+            if(this.getPosition().x < 400 && forceX < 0) {
+                forceX = 0;
+            }
+
             float delta = Gdx.graphics.getDeltaTime();
 
             this.getPosition().add(forceX * delta, forceY * delta);

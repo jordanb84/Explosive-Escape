@@ -39,6 +39,7 @@ public class UiOutro extends UiIntro {
                 this.getHud().getStateManager().setActiveState("menu");
                 this.getHud().getPlayer().getMap().reset(false);
                 this.map.setWon(false);
+                this.map.getHud().getStore().resetLocks();
                 this.restart();
             }
         }

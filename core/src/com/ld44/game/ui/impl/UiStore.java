@@ -74,6 +74,12 @@ public class UiStore extends UiContainer {
         //System.out.println("Resized store");
         //this.rootStage.getViewport().setScreenSize(width, height);
     }
+
+    public void resetLocks() {
+        for(StoreButton storeButton : this.unlocks.values()) {
+            storeButton.resetLock();
+        }
+    }
 }
 
 abstract class StoreButton extends ImageButton {
@@ -89,6 +95,10 @@ abstract class StoreButton extends ImageButton {
     private SpriteDrawable unlockedUp;
     private SpriteDrawable unlockedDown;
     private SpriteDrawable unlockedHover;
+
+    private SpriteDrawable lockedUp;
+    private SpriteDrawable lockedDown;
+    private SpriteDrawable lockedHover;
 
     private UiStore store;
 
@@ -109,6 +119,10 @@ abstract class StoreButton extends ImageButton {
         this.unlockedUp = new SpriteDrawable(Assets.getInstance().getSprite(imageUp));
         this.unlockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDown));
         this.unlockedHover = new SpriteDrawable(Assets.getInstance().getSprite(imageHover));
+
+        this.lockedUp = new SpriteDrawable(Assets.getInstance().getSprite(imageUpLocked));
+        this.lockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDownLocked));
+        this.lockedHover = new SpriteDrawable(Assets.getInstance().getSprite(imageHoverLocked));
 
         this.price = price;
 
@@ -170,6 +184,21 @@ abstract class StoreButton extends ImageButton {
 
     public abstract String getLockedText();
 
+    public abstract void resetLock();
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public void lock() {
+        this.tooltip.getActor().setText(this.getLockedText() + "\n" + this.noLock);
+        this.locked = true;
+
+        this.getStyle().imageUp = this.lockedUp;
+        this.getStyle().imageDown = this.lockedDown;
+        this.getStyle().imageOver = this.lockedHover;
+    }
+
 }
 
 class StoreButtonDoubleSmall extends StoreButton {
@@ -208,6 +237,11 @@ class StoreButtonDoubleSmall extends StoreButton {
         return ("");
     }
 
+    @Override
+    public void resetLock() {
+        this.setLocked(false);
+    }
+
 }
 
 class StoreButtonBoss extends StoreButton {
@@ -237,6 +271,12 @@ class StoreButtonBoss extends StoreButton {
     public String getLockedText() {
         return ("[Locked - Requires Double Cannon Destroyer]");
     }
+
+    @Override
+    public void resetLock() {
+        this.lock();
+    }
+
 }
 
 
@@ -267,6 +307,9 @@ class StoreButtonDoubleMedium extends StoreButton {
         return ("[Locked - Requires Double Cannon Frigate]");
     }
 
-
+    @Override
+    public void resetLock() {
+        this.lock();
+    }
 
 }

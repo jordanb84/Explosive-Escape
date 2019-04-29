@@ -1,6 +1,7 @@
 package com.ld44.game.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -148,6 +149,7 @@ public class Hud {
         if(!this.uiIntro.isActive()) {
             this.uiStore.update(camera);
         }
+
     }
 
     public void modifyCash(int amount) {
@@ -181,7 +183,11 @@ public class Hud {
 
 
     public StateManager getStateManager() {
-        return stateManager;
+        return this.stateManager;
+    }
+
+    public UiStore getStore() {
+        return this.uiStore;
     }
 
 }

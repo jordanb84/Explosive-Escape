@@ -258,6 +258,8 @@ public class Map {
     }
 
     public void reset(boolean destroyPlayer) {
+        this.getHud().getStore().resetLocks();
+
         this.despawnEntity(this.getPlayer());
 
         if(destroyPlayer) {

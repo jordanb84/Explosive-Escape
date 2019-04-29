@@ -39,7 +39,7 @@ public class MiniMap {
         Vector2 center = new Vector2();
 
         for(MapLayer tileLayer : this.map.getTileLayers()) {
-            tileLayer.render(batch, scale, alpha, new Vector2(offset.x + center.x, offset.y + center.y));
+            tileLayer.render(batch, camera, scale, alpha, new Vector2(offset.x + center.x, offset.y + center.y));
         }
 
         for(Entity entity : this.map.getEntities()) {

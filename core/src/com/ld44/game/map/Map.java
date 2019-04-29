@@ -50,7 +50,7 @@ public class Map {
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         for(MapLayer tileLayer : this.getTileLayers()) {
-            tileLayer.render(batch);
+            tileLayer.render(batch, camera);
         }
 
         for(Entity entity : this.getEntities()) {

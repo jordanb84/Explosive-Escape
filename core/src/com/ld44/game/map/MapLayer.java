@@ -2,6 +2,7 @@ package com.ld44.game.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.tile.Tile;
 import com.ld44.game.tile.TileType;
@@ -25,11 +26,15 @@ public class MapLayer {
         this.tiles = this.generateLayer(groundType);
     }
 
-    public void render(SpriteBatch batch) {
-        this.render(batch, 1, 1, new Vector2(0, 0));
+    public void render(SpriteBatch batch, OrthographicCamera camera) {
+        this.render(batch, camera, 1, 1, new Vector2(0, 0));
     }
 
-    public void render(SpriteBatch batch, float scale, float alpha, Vector2 offset) {
+    public void render(SpriteBatch batch, OrthographicCamera camera, float scale, float alpha, Vector2 offset) {
+        Rectangle cameraView = new Rectangle(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+        Rectangle tileRectangle = new Rectangle();
+
+        int drawn = 0;
         int index = 0;
         for(int row = 0; row < this.mapDefinition.getMapHeight(); row++) {
             for(int rowTile = 0; rowTile < this.mapDefinition.getMapWidth(); rowTile++) {
@@ -39,16 +44,24 @@ public class MapLayer {
                 position.add(offset.x, offset.y);
 
                 TileType type = this.tiles.get(index);
-                //type.SPRITE.setPosition(position.x * scale + offset.x, position.y * scale + offset.y);
-                type.SPRITE.setScale(scale);
-                type.SPRITE.setAlpha(alpha);
-                type.SPRITE.setPosition(position.x, position.y);
-                type.SPRITE.draw(batch);
-                type.SPRITE.setScale(1);
-                type.SPRITE.setAlpha(1);
-                index++;
+
+                tileRectangle.set(position.x, position.y, type.SPRITE.getWidth(), type.SPRITE.getHeight());
+
+                if(tileRectangle.overlaps(cameraView)) {
+                    //type.SPRITE.setPosition(position.x * scale + offset.x, position.y * scale + offset.y);
+                    type.SPRITE.setScale(scale);
+                    type.SPRITE.setAlpha(alpha);
+                    type.SPRITE.setPosition(position.x, position.y);
+                    type.SPRITE.draw(batch);
+                    type.SPRITE.setScale(1);
+                    type.SPRITE.setAlpha(1);
+                    index++;
+                    drawn++;
+                }
             }
         }
+
+        System.out.println(drawn);
     }
 
     public void update() {

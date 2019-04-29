@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.ld44.game.audio.SoundEffectType;
 import com.ld44.game.entity.EntityBoat;
 import com.ld44.game.entity.impl.EntityBullet;
 import com.ld44.game.entity.impl.EntityCrate;
@@ -158,6 +159,7 @@ public abstract class EntityEnemy extends EntityBoat {
     @Override
     public void die() {
         super.die();
+        SoundEffectType.playSound(SoundEffectType.Chunky_Explosion);
         /**int reward = new Random().nextInt(this.value);
 
         if(reward < this.value / 2) {

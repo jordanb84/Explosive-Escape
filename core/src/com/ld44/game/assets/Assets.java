@@ -92,6 +92,13 @@ public class Assets {
 
         this.assetManager.load("skin/arcade/arcade-ui.json", Skin.class);
 
+        this.loadSoundEffect("audio/chunky_explosion.mp3");
+
+        this.loadMusic("audio/bg.mp3");
+        this.loadMusic("audio/esa.ogg");
+
+        this.loadSoundEffect("audio/click.ogg");
+        this.loadSoundEffect("audio/crash.ogg");
 
         this.assetManager.finishLoading();
     }

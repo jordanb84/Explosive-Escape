@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.ld44.game.audio.MusicType;
 import com.ld44.game.map.Map;
 import com.ld44.game.ui.Hud;
 
@@ -40,6 +41,7 @@ public class UiOutro extends UiIntro {
                 this.getHud().getPlayer().getMap().reset(false);
                 this.map.setWon(false);
                 this.map.getHud().getStore().resetLocks();
+                MusicType.stopMusic();
                 this.restart();
             }
         }

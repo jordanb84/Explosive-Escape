@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.ld44.game.assets.Assets;
+import com.ld44.game.audio.MusicType;
+import com.ld44.game.audio.SoundEffectType;
 import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 import com.ld44.game.ship.impl.DoubleCannonDestroyerShip;
@@ -135,6 +137,7 @@ abstract class StoreButton extends ImageButton {
                 System.out.println(locked);
                 if(hud.getCash() >= price) {
                     if(!locked) {
+                        SoundEffectType.playSound(SoundEffectType.Click);
                         hud.modifyCash(-price);
                         tooltip.getActor().setText(noLock);
                         paid();
@@ -254,6 +257,7 @@ class StoreButtonBoss extends StoreButton {
     @Override
     public void paid() {
         this.getStore().getHud().getPlayer().getMap().startBossBattle();
+        MusicType.loopMusic(MusicType.Boss);
         //this.getPlayer().setPlayerShip(new DoubleCannonDestroyerShip(this.getPlayer().getMap(), this.getPlayer()));
     }
 
@@ -283,7 +287,7 @@ class StoreButtonBoss extends StoreButton {
 class StoreButtonDoubleMedium extends StoreButton {
 
     public StoreButtonDoubleMedium(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,0,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
+        super(store, hud, player,2,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
     }
 
     @Override

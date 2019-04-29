@@ -110,7 +110,7 @@ public abstract class EntityBoat extends Entity {
                 speedModifier = this.speedAcceleration * delta;
                 break;
             case DOWN:
-                float stopModifier = 4;
+                float stopModifier = 6;
                 speedModifier = -this.speedAcceleration * delta * stopModifier;
                 break;
             case RIGHT:

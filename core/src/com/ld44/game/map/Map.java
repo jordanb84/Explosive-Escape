@@ -1,6 +1,7 @@
 package com.ld44.game.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.ld44.game.assets.Assets;
+import com.ld44.game.audio.SoundEffectType;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.entity.EntityEnemy;
 import com.ld44.game.entity.impl.*;

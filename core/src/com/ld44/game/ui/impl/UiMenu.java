@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.ld44.game.assets.Assets;
+import com.ld44.game.audio.MusicType;
+import com.ld44.game.audio.SoundEffectType;
 import com.ld44.game.state.StateManager;
 import com.ld44.game.state.impl.StateTest;
 import com.ld44.game.ui.Hud;
@@ -43,6 +45,8 @@ public class UiMenu extends UiContainer {
                 super.clicked(event, x, y);
                 //getStateManager().setActiveState(new StateTest(getStateManager()));
                 getStateManager().setActiveState("test");
+                SoundEffectType.playSound(SoundEffectType.Crash);
+                MusicType.loopMusic(MusicType.Background);
             }
         });
 

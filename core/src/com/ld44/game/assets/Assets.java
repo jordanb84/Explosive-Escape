@@ -23,10 +23,10 @@ public class Assets {
     public Assets() {
         this.assetManager = new AssetManager();
 
-        this.loadAssets();
+        //this.loadAssets();
     }
 
-    private void loadAssets() {
+    public void loadAssets() {
         this.loadTextures("entity/player.png", "entity/player_small.png");
         this.loadTextures("entity/small_0.png", "entity/small_1.png", "entity/small_2.png", "entity/small_3.png", "entity/small_4.png");
         this.loadTextures("entity/small_0b.png", "entity/small_1b.png", "entity/small_2b.png", "entity/small_3b.png", "entity/small_4b.png");
@@ -48,12 +48,11 @@ public class Assets {
 
         this.loadTexture("entity/large_destroyed.png");
 
-        this.loadDirectory("explosion/small");
-        this.loadDirectory("crosshair");
-        this.loadDirectory("explosion/medium");
-        this.loadDirectory("explosion/nine");
-        this.loadDirectory("explosion/rocket");
-        this.loadDirectory("explosion/large");
+        this.loadGroup("explosion/small/", "small_", 23);
+        this.loadGroup("explosion/medium/", "medium_", 23);
+        this.loadGroup("explosion/nine/", "nine_", 31);
+        this.loadGroup("explosion/rocket/", "rocket_", 15);
+        this.loadGroup("explosion/large/", "rocket_", 24);
 
         this.loadTexture("ui/bar.png");
         this.loadTexture("ui/text.png");
@@ -77,6 +76,8 @@ public class Assets {
 
         this.loadTextures("entity/water_ripple_small_000.png", "entity/water_ripple_small_001.png", "entity/water_ripple_small_002.png", "entity/water_ripple_small_003.png", "entity/water_ripple_small_004.png");
 
+        this.loadTexture("crosshair/crosshair6.png");
+
         this.assetManager.load("skin/holo/Holo-dark-hdpi.json", Skin.class);
 
         this.assetManager.load("skin/arcade/arcade-ui.json", Skin.class);
@@ -85,7 +86,16 @@ public class Assets {
         this.assetManager.finishLoading();
     }
 
-    public void loadDirectory(String path) {
+    public void loadGroup(String path, String prefix, int count) {
+        for(int loaded = 0; loaded < count; loaded++) {
+            String fileName = (path + prefix + loaded + ".png");
+
+            this.loadTexture(fileName);
+        }
+    }
+
+    /**public void loadDirectory(String path) {
+        System.out.println("LOADING DIRECTORY " + path + " FOUND " + Gdx.files.internal(path).list().length + " FILES");
         for(FileHandle file : Gdx.files.internal(path).list()) {
             this.loadTexture(path + "/" + file.name());
             System.out.println("Loaded " + path + "/" + file.name());
@@ -110,15 +120,17 @@ public class Assets {
         }
 
         return sprites;
-    }
+    }**/
 
     public void loadTexture(String path) {
         this.assetManager.load(path, Texture.class);
+        System.out.println("Loaded " + path);
     }
 
     public void loadTextures(String ... paths) {
         for(String path : paths) {
             this.assetManager.load(path, Texture.class);
+            System.out.println("Loaded " + path);
         }
     }
 
@@ -154,6 +166,9 @@ public class Assets {
         return this.assetManager.get(path, Sound.class);
     }
 
+    public boolean update() {
+        return this.assetManager.update();
+    }
 
     public static Assets getInstance() {
         return INSTANCE;

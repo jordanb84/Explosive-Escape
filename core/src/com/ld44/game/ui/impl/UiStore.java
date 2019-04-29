@@ -159,7 +159,7 @@ abstract class StoreButton extends ImageButton {
 class StoreButtonDoubleSmall extends StoreButton {
 
     public StoreButtonDoubleSmall(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,2,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
+        super(store, hud, player,30,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
         this.unlock();
     }
 
@@ -190,7 +190,7 @@ class StoreButtonDoubleSmall extends StoreButton {
 class StoreButtonBoss extends StoreButton {
 
     public StoreButtonBoss(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player, 30, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
+        super(store, hud, player, 60, "ui/boss.png", "ui/boss_down.png", "ui/boss_hover.png", "ui/boss_locked.png", "ui/boss_down_locked.png", "ui/boss_hover_locked.png");
         //this.unlock();
     }
 
@@ -220,7 +220,7 @@ class StoreButtonBoss extends StoreButton {
 class StoreButtonDoubleMedium extends StoreButton {
 
     public StoreButtonDoubleMedium(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,0,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
+        super(store, hud, player,50,"ui/medium_double_side.png", "ui/medium_double_side_down.png", "ui/medium_double_side_hover.png", "ui/medium_double_side_locked.png", "ui/medium_double_side_down_locked.png", "ui/medium_double_side_hover_locked.png");
     }
 
     @Override

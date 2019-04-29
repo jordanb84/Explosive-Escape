@@ -33,6 +33,10 @@ public class Map {
 
     private EntityPlayer player;
 
+    private boolean spawnPlayer;
+
+    private float spawnPlayerElapsed;
+
     public Map(List<MapLayer> tileLayers, MapDefinition mapDefinition, List<Entity> entities) {
         this.tileLayers = tileLayers;
         this.mapDefinition = mapDefinition;
@@ -75,6 +79,16 @@ public class Map {
     public void update(OrthographicCamera camera) {
         for(MapLayer tileLayer : this.getTileLayers()) {
             tileLayer.update();
+        }
+
+        if(this.spawnPlayer) {
+            this.spawnPlayerElapsed += 1 * Gdx.graphics.getDeltaTime();
+
+            if(this.spawnPlayerElapsed >= 2.5f) {
+                this.spawnEntity(this.getPlayer());
+                this.spawnPlayerElapsed = 0;
+                this.spawnPlayer = false;
+            }
         }
 
         this.entities.addAll(this.entitySpawnQueue);
@@ -174,5 +188,23 @@ public class Map {
 
     }
 
+    public void reset() {
+        EntityPlayer replacementPlayer = new EntityPlayer(this, new Vector2());
+
+        this.setPlayer(replacementPlayer);
+
+        this.getPlayer().setPlayerShip(new SingleCannonFrigateShip(this, this.getPlayer()));
+        this.getPlayer().setHealth(1);
+        this.getHud().setCash(0);
+
+        int centerX = mapDefinition.getMapWidth() * mapDefinition.getTileWidth() / 2;
+        int centerY = mapDefinition.getMapHeight() * mapDefinition.getTileHeight() / 2;
+
+        this.getPlayer().getPosition().set(centerX, centerY);
+        this.getPlayer().setSpeed(0);
+
+        this.spawnPlayer = true;
+        this.spawnPlayerElapsed = 0;
+    }
 
 }

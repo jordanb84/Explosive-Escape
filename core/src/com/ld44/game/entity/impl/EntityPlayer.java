@@ -42,10 +42,6 @@ public class EntityPlayer extends EntityBoat {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
-
-      //  System.out.println(this.getSpeed());
-
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(mousePosition);
@@ -125,4 +121,9 @@ public class EntityPlayer extends EntityBoat {
         return true;
     }
 
+    @Override
+    public void die() {
+        super.die();
+        this.getMap().reset();
+    }
 }

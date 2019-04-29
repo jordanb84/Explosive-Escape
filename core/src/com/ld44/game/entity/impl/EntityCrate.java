@@ -72,15 +72,19 @@ public class EntityCrate extends Entity {
 
         this.grabBody.set(this.getPosition().x - this.getWidth() / 2, this.getPosition().y - this.getHeight() / 2, this.getWidth() * 2, this.getHeight() * 2);
 
-        EntityPlayer player = this.getMap().getPlayer();
+        try {
+            EntityPlayer player = this.getMap().getPlayer();
 
-        if(this.grabBody.overlaps(player.getPolygonBody().getBoundingRectangle())) {
-            this.moveTowardDestination(new Vector2(player.getPosition()), 10);
-        }
+            if (this.grabBody.overlaps(player.getPolygonBody().getBoundingRectangle())) {
+                this.moveTowardDestination(new Vector2(player.getPosition()), 10);
+            }
 
-        if(this.getBody().overlaps(player.getPolygonBody().getBoundingRectangle())) {
-            this.getMap().getHud().modifyCash(this.value);
-            this.getMap().despawnEntity(this);
+            if (this.getBody().overlaps(player.getPolygonBody().getBoundingRectangle())) {
+                this.getMap().getHud().modifyCash(this.value);
+                this.getMap().despawnEntity(this);
+            }
+        } catch(ArrayIndexOutOfBoundsException playerDead) {
+
         }
     }
 

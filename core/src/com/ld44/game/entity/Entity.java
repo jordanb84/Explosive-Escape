@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
+import com.ld44.game.entity.impl.EntityPlayer;
 import com.ld44.game.map.Map;
 
 public abstract class Entity {

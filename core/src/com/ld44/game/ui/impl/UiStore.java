@@ -96,6 +96,8 @@ abstract class StoreButton extends ImageButton {
         this.unlockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDown));
         this.unlockedHover = new SpriteDrawable(Assets.getInstance().getSprite(imageHover));
 
+        this.price = price;
+
         this.noLock = this.getName() + "\n(" + this.getDescription() + ")\n- Cost: " + this.getPrice();
 
         this.addListener(new ClickListener() {
@@ -112,8 +114,6 @@ abstract class StoreButton extends ImageButton {
                 }
             }
         });
-
-        this.price = price;
 
         this.tooltip = new TextTooltip(this.getLockedText() + "\n" + noLock, Skins.Arcade.SKIN);
         this.tooltip.setInstant(true);
@@ -159,12 +159,13 @@ abstract class StoreButton extends ImageButton {
 class StoreButtonDoubleSmall extends StoreButton {
 
     public StoreButtonDoubleSmall(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,0,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
+        super(store, hud, player,2,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
         this.unlock();
     }
 
     @Override
     public void paid() {
+        System.out.println("Bought");
         this.getPlayer().setPlayerShip(new DoubleCannonFrigateShip(this.getPlayer().getMap(), this.getPlayer()));
         this.getStore().unlock(Unlocks.DESTROYER);
     }

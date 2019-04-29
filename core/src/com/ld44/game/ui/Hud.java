@@ -140,7 +140,9 @@ public class Hud {
     public void modifyCash(int amount) {
         this.cash += amount;
 
-        this.flash = true;
+        if(amount > 0) {
+            this.flash = true;
+        }
     }
 
     public EntityPlayer getPlayer() {

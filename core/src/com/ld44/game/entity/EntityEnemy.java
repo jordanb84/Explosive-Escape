@@ -62,12 +62,12 @@ public abstract class EntityEnemy extends EntityBoat {
         this.getActiveSprite().setRotation(this.getRotation());
         this.getActiveSprite().draw(batch);
 
-        batch.end();
+        /**batch.end();
         this.shapeRenderer.begin();
         this.shapeRenderer.setProjectionMatrix(camera.combined);
         this.shapeRenderer.rect(this.fireRange.x, this.fireRange.y, this.fireRange.width, this.fireRange.height);
         this.shapeRenderer.end();
-        batch.begin();
+        batch.begin();**/
     }
 
     @Override

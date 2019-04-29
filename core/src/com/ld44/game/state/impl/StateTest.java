@@ -65,7 +65,7 @@ public class StateTest extends State {
 
         this.miniMap = new MiniMap(this.map);
 
-        this.hud = new Hud(this.map, player);
+        this.hud = new Hud(this.map, player, this.getManager().getHudCamera());
 
         this.map.setHud(this.hud);
     }
@@ -87,7 +87,7 @@ public class StateTest extends State {
 
     @Override
     public void resize(int width, int height) {
-
+        this.hud.resize(width, height);
     }
 
 }

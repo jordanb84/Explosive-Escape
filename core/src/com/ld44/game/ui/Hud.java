@@ -47,15 +47,14 @@ public class Hud {
 
     private UiIntro uiIntro;
 
-    public Hud(Map map, EntityPlayer player) {
+    public Hud(Map map, EntityPlayer player, OrthographicCamera hudCamera) {
         this.map = map;
         this.player = player;
         this.barSprite = Assets.getInstance().getSprite("ui/text.png");
         this.statsBar = Assets.getInstance().getSprite("ui/bar.png");
         this.textSprite = Assets.getInstance().getSprite("ui/text.png");
 
-        this.hudCamera = new OrthographicCamera();
-        this.hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.hudCamera = hudCamera;
 
         this.font = new BitmapFont(Gdx.files.internal("font/shadow4.fnt"));
         this.flashFont = new BitmapFont(Gdx.files.internal("font/flashGreen.fnt"));
@@ -120,11 +119,11 @@ public class Hud {
             this.mediumFont.draw(batch, "Speed", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 22, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 4);
             this.mediumFont.draw(batch, "" + (int) this.getPlayer().getSpeed() + "M/s", this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 4, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
 
-            this.uiStore.render(batch);
-
             this.textSprite.setPosition(10, 10);
             this.textSprite.draw(batch);
             this.mediumFont.draw(batch, "Store", this.textSprite.getX() + this.textSprite.getWidth() / 6 + 22, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 5);
+
+            this.uiStore.render(batch);
         } else {
             this.uiIntro.render(batch);
         }
@@ -166,5 +165,14 @@ public class Hud {
     public void setCash(int cash) {
         this.cash = cash;
     }
+
+    public void resize (int width, int height) {
+        this.uiStore.resize(width, height);
+        System.out.println("Resized store to " + width + "/" + height);
+
+        //this.hudCamera.setToOrtho(false, width, height);
+    }
+
+    //is this thing's custom hud camera getting resized?
 
 }

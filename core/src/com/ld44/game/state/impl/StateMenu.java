@@ -32,7 +32,7 @@ public class StateMenu extends State {
 
     @Override
     public void resize(int width, int height) {
-
+        this.uiMenu.resize(width, height);
     }
 
 }

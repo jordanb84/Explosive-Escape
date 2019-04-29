@@ -41,6 +41,9 @@ public abstract class UiContainer {
         }
     }
 
+    private int width = 0;
+    private int height = 0;
+
     public void render(SpriteBatch batch) {
         batch.end();
         this.rootStage.draw();
@@ -49,12 +52,28 @@ public abstract class UiContainer {
 
     public void update(OrthographicCamera camera) {
         this.rootStage.act(Gdx.graphics.getDeltaTime());
+
+        if(width > 0 && height > 0) {
+            //System.out.println("UPDATE WH " + width + "/" + height);
+            this.rootStage.getViewport().update(width, height, true);
+        }
     }
+
+    /**
+     * If you update when the store isn't active yet, positions dont get updated right,
+     * but the buttons/hovers etc are fine (maybe just because positions didnt move)
+     *
+     * since the hud for the store makes a _new_ camera, which is made _After_ you hit play,
+     * maybe that camera isn't up to date
+     */
 
     public abstract void create();
 
     public void resize (int width, int height) {
         this.rootStage.getViewport().update(width, height, true);
+        this.width = width;
+        this.height = height;
+        //this.rootStage.getViewport().setScreenSize(width, height);
     }
 
     public Skin getDefaultSkin() {

@@ -64,6 +64,15 @@ public class UiStore extends UiContainer {
     public void update(OrthographicCamera camera) {
         super.update(camera);
         Gdx.input.setInputProcessor(this.getStage());
+
+        //System.out.println("Store size is at " + this.getStage().getViewport().getWorldWidth() + "/" + this.getStage().getViewport().getWorldHeight());
+    }
+
+    @Override
+    public void resize (int width, int height) {
+        super.resize(width, height);
+        //System.out.println("Resized store");
+        //this.rootStage.getViewport().setScreenSize(width, height);
     }
 }
 

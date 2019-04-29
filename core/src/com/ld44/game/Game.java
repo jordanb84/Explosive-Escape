@@ -32,6 +32,7 @@ public class Game extends ApplicationAdapter {
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		Gdx.graphics.setTitle("LD44");
+		//Gdx.graphics.setResizable(false);
 	}
 
 	@Override
@@ -54,7 +55,11 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height) {
+		try {
+			this.stateManager.resizeActiveState(width, height);
+		} catch(NullPointerException noStateActive) {
 
+		}
 	}
 
 	public void load() {

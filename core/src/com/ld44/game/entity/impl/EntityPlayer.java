@@ -160,4 +160,9 @@ public class EntityPlayer extends EntityBoat {
         super.die();
         this.getMap().reset();
     }
+
+    public PlayerShip getPlayerShip() {
+        return playerShip;
+    }
+
 }

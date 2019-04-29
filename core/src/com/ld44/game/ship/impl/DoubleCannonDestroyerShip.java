@@ -1,5 +1,6 @@
 package com.ld44.game.ship.impl;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
@@ -66,6 +67,11 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
     @Override
     public float modifyDamage(float damage) {
         return damage / 2;
+    }
+
+    @Override
+    public Sprite getDestroyedSprite() {
+        return Assets.getInstance().getSprite("entity/player_medium_destroyed.png");
     }
 
 }

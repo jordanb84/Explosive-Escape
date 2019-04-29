@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.impl.EntityPlayer;
+import com.ld44.game.map.Map;
 import com.ld44.game.ship.impl.DoubleCannonDestroyerShip;
 import com.ld44.game.ship.impl.DoubleCannonFrigateShip;
 import com.ld44.game.state.StateManager;
@@ -86,11 +87,15 @@ abstract class StoreButton extends ImageButton {
 
     private String noLock;
 
+    private Map map;
+
     public StoreButton(UiStore store, final Hud hud, EntityPlayer player, final int price, String imageUp, String imageDown, String imageHover, String imageUpLocked, String imageDownLocked, String imageHoverLocked) {
         super(new SpriteDrawable(Assets.getInstance().getSprite(imageUpLocked)), new SpriteDrawable(Assets.getInstance().getSprite(imageDownLocked)));
         this.getStyle().imageOver = new SpriteDrawable(Assets.getInstance().getSprite(imageHoverLocked));
 
         this.locked = true;
+
+        this.map = player.getMap();
 
         this.unlockedUp = new SpriteDrawable(Assets.getInstance().getSprite(imageUp));
         this.unlockedDown = new SpriteDrawable(Assets.getInstance().getSprite(imageDown));
@@ -135,7 +140,7 @@ abstract class StoreButton extends ImageButton {
     }
 
     public EntityPlayer getPlayer() {
-        return player;
+        return this.map.getPlayer();
     }
 
     public void unlock() {
@@ -163,7 +168,7 @@ class StoreButtonDoubleSmall extends StoreButton {
     private boolean bought;
 
     public StoreButtonDoubleSmall(UiStore store, Hud hud, EntityPlayer player) {
-        super(store, hud, player,0,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
+        super(store, hud, player,2,"ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png", "ui/ship_double_small.png", "ui/ship_double_small_down.png", "ui/ship_double_small_hover.png");
         this.unlock();
     }
 
@@ -186,7 +191,7 @@ class StoreButtonDoubleSmall extends StoreButton {
 
     @Override
     public String getDescription() {
-        return ("Twice the firepower and more speed!");
+        return ("Twice the firepower, more speed!");
     }
 
     @Override
@@ -245,7 +250,7 @@ class StoreButtonDoubleMedium extends StoreButton {
 
     @Override
     public String getDescription() {
-        return ("Far more durable and packed with speed!");
+        return ("More guns, durability and speed!");
     }
 
     @Override

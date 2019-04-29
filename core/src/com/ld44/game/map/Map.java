@@ -37,6 +37,8 @@ public class Map {
 
     private float spawnPlayerElapsed;
 
+    private Sprite destroyedPlayer;
+
     public Map(List<MapLayer> tileLayers, MapDefinition mapDefinition, List<Entity> entities) {
         this.tileLayers = tileLayers;
         this.mapDefinition = mapDefinition;
@@ -63,11 +65,16 @@ public class Map {
             }
         }
 
+        if(this.spawnPlayer) {
+            this.destroyedPlayer.draw(batch);
+        }
+
         for(Entity entity : this.getEntities()) {
             if(entity instanceof EntityCrate) {
                 entity.render(batch, camera);
             }
         }
+
 
         Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePosition);
@@ -203,6 +210,10 @@ public class Map {
     }
 
     public void reset() {
+        this.destroyedPlayer = this.getPlayer().getPlayerShip().getDestroyedSprite();
+        this.destroyedPlayer.setRotation(this.getPlayer().getRotation());
+        this.destroyedPlayer.setPosition(this.getPlayer().getPosition().x, this.getPlayer().getPosition().y);
+
         EntityPlayer replacementPlayer = new EntityPlayer(this, new Vector2());
 
         this.setPlayer(replacementPlayer);

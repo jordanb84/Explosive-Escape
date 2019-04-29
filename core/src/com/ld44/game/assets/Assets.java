@@ -51,6 +51,9 @@ public class Assets {
 
         this.loadTexture("entity/large_destroyed.png");
 
+        this.loadTexture("entity/player_double_destroyed.png");
+        this.loadTexture("entity/player_medium_destroyed.png");
+
         this.loadGroup("explosion/small/", "small_", 23);
         this.loadGroup("explosion/medium/", "medium_", 23);
         this.loadGroup("explosion/nine/", "nine_", 31);

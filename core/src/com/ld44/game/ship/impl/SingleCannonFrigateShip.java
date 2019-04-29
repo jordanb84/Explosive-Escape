@@ -1,8 +1,10 @@
 package com.ld44.game.ship.impl;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
+import com.ld44.game.assets.Assets;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.impl.EntityBullet;
 import com.ld44.game.entity.impl.EntityPlayer;
@@ -50,7 +52,12 @@ public class SingleCannonFrigateShip extends PlayerShip {
 
     @Override
     public float modifyDamage(float damage) {
-        return damage;
+        return damage * 4;
+    }
+
+    @Override
+    public Sprite getDestroyedSprite() {
+        return Assets.getInstance().getSprite("entity/small_destroyed.png");
     }
 
 }

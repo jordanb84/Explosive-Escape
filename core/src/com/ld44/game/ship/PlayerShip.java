@@ -1,5 +1,6 @@
 package com.ld44.game.ship;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
@@ -53,5 +54,7 @@ public abstract class PlayerShip {
     }
 
     public abstract float modifyDamage(float damage);
+
+    public abstract Sprite getDestroyedSprite();
 
 }

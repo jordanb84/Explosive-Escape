@@ -37,6 +37,9 @@ public class UiMenu extends UiContainer {
 
         this.getRootTable().addActor(new ImageButton(new SpriteDrawable(this.background)));
 
+        this.getRootTable().add(new Label("Explosive Escape", this.getDefaultSkin())).center();
+        this.getRootTable().row();
+
         TextButton startButton = new TextButton("Play", this.getDefaultSkin());
 
         startButton.addListener(new ClickListener() {

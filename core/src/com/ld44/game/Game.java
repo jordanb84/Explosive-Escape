@@ -31,7 +31,7 @@ public class Game extends ApplicationAdapter {
 		//this.camera.setToOrtho(false, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2);
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		Gdx.graphics.setTitle("LD44");
+		Gdx.graphics.setTitle("Explosive Escape - LD44");
 		//Gdx.graphics.setResizable(false);
 	}
 

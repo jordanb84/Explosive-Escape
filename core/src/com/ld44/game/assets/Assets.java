@@ -99,6 +99,7 @@ public class Assets {
 
         this.loadSoundEffect("audio/click.ogg");
         this.loadSoundEffect("audio/crash.ogg");
+        this.loadSoundEffect("audio/beep.wav");
 
         this.assetManager.finishLoading();
     }

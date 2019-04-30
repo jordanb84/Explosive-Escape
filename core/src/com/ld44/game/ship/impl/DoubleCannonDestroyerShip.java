@@ -19,8 +19,8 @@ public class DoubleCannonDestroyerShip extends PlayerShip {
     public DoubleCannonDestroyerShip(Map map, EntityPlayer player) {
         super(map, player);
         //player.setSpeed(180);
-        player.setMaxSpeed(210);
-        player.setSpeedAcceleration(40);
+        player.setMaxSpeed(300);
+        player.setSpeedAcceleration(80);
     }
 
     @Override

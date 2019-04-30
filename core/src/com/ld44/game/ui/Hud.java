@@ -122,7 +122,7 @@ public class Hud {
             this.barSprite.draw(batch);
 
             this.mediumFont.draw(batch, "Speed", this.textSprite.getX() + this.textSprite.getWidth() / 8 + 22, this.textSprite.getY() + this.textSprite.getHeight() / 2 + this.textSprite.getHeight() / 4 - 4);
-            this.mediumFont.draw(batch, "" + (int) this.getPlayer().getSpeed() + "M/s", this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 4, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
+            this.mediumFont.draw(batch, "" + (int) this.map.getPlayer().getSpeed() + "M/s", this.barSprite.getX() + this.barSprite.getWidth() / 4 - this.textSprite.getWidth() / 16 + 4, this.barSprite.getY() + this.barSprite.getHeight() - this.barSprite.getHeight() / 2 + this.barSprite.getHeight() / 5 - 2);
 
             this.textSprite.setPosition(10, 10);
             this.textSprite.draw(batch);

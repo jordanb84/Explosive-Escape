@@ -43,10 +43,13 @@ public class UiMenu extends UiContainer {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //getStateManager().setActiveState(new StateTest(getStateManager()));
-                getStateManager().setActiveState("test");
-                SoundEffectType.playSound(SoundEffectType.Crash);
-                MusicType.loopMusic(MusicType.Background);
+                if(!getStateManager().isPlaying()) {
+                    //getStateManager().setActiveState(new StateTest(getStateManager()));
+                    getStateManager().setActiveState("test");
+                    SoundEffectType.playSound(SoundEffectType.Crash);
+                    MusicType.loopMusic(MusicType.Background);
+                    getStateManager().setPlaying(true);
+                }
             }
         });
 
@@ -71,7 +74,7 @@ public class UiMenu extends UiContainer {
         credits += ("\nJoth: Explosion (CC0)");
         credits += ("\nMvrasseli: Main Music (CC-BY 3.0)");
         credits += ("\nYd: Boss Music (CC0)");
-        credits += ("\nQubodup: Click sound 1 (CC0)");
+        credits += ("\nQubodup: Click sound 1 & 2 (CC0)");
         //credits += ("\nThemightyglider: Click sound 2 (CC0)");
 
         TextTooltip creditsTooltip = new TextTooltip(credits, Skins.Arcade.SKIN);
@@ -85,7 +88,9 @@ public class UiMenu extends UiContainer {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.exit(0);
+                if(!getStateManager().isPlaying()) {
+                    System.exit(0);
+                }
             }
         });
 

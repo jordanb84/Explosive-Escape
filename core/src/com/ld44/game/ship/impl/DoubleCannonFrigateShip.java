@@ -54,7 +54,7 @@ public class DoubleCannonFrigateShip extends PlayerShip {
 
     @Override
     public float modifyDamage(float damage) {
-        return damage;
+        return damage - (damage / 3);
     }
 
     @Override

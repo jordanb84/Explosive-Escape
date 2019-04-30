@@ -14,6 +14,8 @@ public class StateManager {
 
     private OrthographicCamera hudCamera;
 
+    private boolean playing;
+
     public StateManager() {
         this.hudCamera = new OrthographicCamera();
         this.hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -57,9 +59,6 @@ public class StateManager {
 
     public void setActiveState(String name) {
         this.activeState = this.states.get(name);
-        /**if(this.resizeWidth > 0 && this.resizeHeight > 0) {
-            this.activeState.resize(this.resizeWidth, this.resizeHeight);
-        }**/
     }
 
     public void setActiveState(State state) {
@@ -72,6 +71,14 @@ public class StateManager {
 
     public OrthographicCamera getHudCamera() {
         return hudCamera;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
 }

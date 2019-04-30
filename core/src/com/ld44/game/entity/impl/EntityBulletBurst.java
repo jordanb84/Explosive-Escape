@@ -25,7 +25,7 @@ public class EntityBulletBurst extends Entity {
 
     private String explosion;
 
-    public EntityBulletBurst(String explosion, int rows, int columns, Map map, Vector2 position, Vector2 destination, Vector2 spread, float burstSpeed, Sprite bulletSprite) {
+    public EntityBulletBurst(float damageMultiplier, String explosion, int rows, int columns, Map map, Vector2 position, Vector2 destination, Vector2 spread, float burstSpeed, Sprite bulletSprite) {
         super(map, position, 100);
         this.spread = spread;
         this.burstSpeed = burstSpeed;
@@ -36,9 +36,10 @@ public class EntityBulletBurst extends Entity {
 
         for(EntityBullet bullet : this.burst) {
             bullet.setShouldMove(false);
-            bullet.setRange(2);
+            bullet.setRange(3);
             bullet.setSprite(bulletSprite);
-            bullet.setSpeed(this.burstSpeed);
+            bullet.setSpeed(this.burstSpeed * 2.5f);
+            bullet.setDamageMultiplier(damageMultiplier * 2);
             this.getMap().spawnEntity(bullet);
         }
     }

@@ -40,6 +40,8 @@ public class EntityBullet extends Entity {
 
     private float lifespan;
 
+    private float damageMultiplier = 1;
+
     public EntityBullet(Map map, Vector2 position, Vector2 destination, boolean enemy, String explosionSpritePath) {
         super(map, position, 160);
         this.destination = destination;
@@ -92,7 +94,7 @@ public class EntityBullet extends Entity {
             for(Entity entity : this.getMap().getEntities()) {
                 if(entity instanceof EntityPlayer) {
                     if(entity.getBody().overlaps(this.getBody())) {
-                        ((EntityPlayer) entity).damage(0.002f);
+                        ((EntityPlayer) entity).damage(0.002f * this.getDamageMultiplier());
                         hit = true;
                         hitEntity = entity;
                         //System.out.println("Hit player");
@@ -160,6 +162,14 @@ public class EntityBullet extends Entity {
 
     public void setLifespan(float lifespan) {
         this.lifespan = lifespan;
+    }
+
+    public float getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public void setDamageMultiplier(float damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
     }
 
 }

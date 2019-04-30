@@ -22,7 +22,7 @@ public class EntityBoss extends EntityEnemy {
 
     private float burstElapsed;
 
-    private float burstInterval = 1;
+    private float burstInterval = 0.4f;
 
     private Sprite bulletSprite;
 
@@ -32,7 +32,7 @@ public class EntityBoss extends EntityEnemy {
 
     private float rockeElapsed;
 
-    private float defaultRocketInterval = 2;
+    private float defaultRocketInterval = 1;
     private float rocketInterval = defaultRocketInterval;
 
     private String rocketExplosion = ("explosion/large/rocket_");
@@ -44,8 +44,8 @@ public class EntityBoss extends EntityEnemy {
         this.bulletSprite = Assets.getInstance().getSprite("entity/basicBullet.png");
         this.bulletSpritePink = Assets.getInstance().getSprite("entity/basicBulletPink.png");
 
-        this.bursts.add(new IntervalBurst("explosion/medium/medium_",5, 6, this, 1, new Vector2(100, 50), 100, this.bulletSprite));
-        this.bursts.add(new IntervalBurst("explosion/nine/nine_", 3, 3, this, 3, new Vector2(200, 100), 200, this.bulletSpritePink));
+        this.bursts.add(new IntervalBurst(1.5f,"explosion/medium/medium_",5, 6, this, 0.3f, new Vector2(100, 50), 100, this.bulletSprite));
+        this.bursts.add(new IntervalBurst(1.5f,"explosion/nine/nine_", 3, 3, this, 2, new Vector2(200, 100), 200, this.bulletSpritePink));
     }
 
     @Override
@@ -57,10 +57,6 @@ public class EntityBoss extends EntityEnemy {
     public void update(OrthographicCamera camera) {
         super.update(camera);
         this.camera = camera;
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            this.die();
-        }
 
         for(IntervalBurst burst : this.bursts) {
             burst.update();
@@ -88,13 +84,13 @@ public class EntityBoss extends EntityEnemy {
         }
     }
 
-    public EntityBulletBurst generateBurst(String explosion, int rows, int columns, Vector2 spread, float speed, Sprite sprite) {
+    public EntityBulletBurst generateBurst(float damageMultiplier, String explosion, int rows, int columns, Vector2 spread, float speed, Sprite sprite) {
         EntityPlayer player = this.getMap().getPlayer();
 
         Vector2 origin = new Vector2(this.getPosition().x, this.getPosition().y);
         Vector2 destination = new Vector2(player.getPosition().x + player.getWidth() / 2, player.getPosition().y + player.getHeight() / 2);
 
-        EntityBulletBurst burst = new EntityBulletBurst(explosion, rows, columns, this.getMap(), origin, destination, spread, speed, sprite);
+        EntityBulletBurst burst = new EntityBulletBurst(damageMultiplier, explosion, rows, columns, this.getMap(), origin, destination, spread, speed, sprite);
 
         return burst;
     }
@@ -153,7 +149,7 @@ public class EntityBoss extends EntityEnemy {
     @Override
     public void damage(float amount) {
         //System.out.println("Old hp " + this.getHealth());
-        this.setHealth(this.getHealth() - amount / 10);
+        this.setHealth(this.getHealth() - 0.0007f);
         //System.out.println("New hp " + this.getHealth());
     }
 
@@ -193,7 +189,9 @@ class IntervalBurst {
 
     private String explosion;
 
-    public IntervalBurst(String explosion, int rows, int columns, EntityBoss boss, float interval, Vector2 spread, float speed, Sprite sprite) {
+    private float damageMultiplier;
+
+    public IntervalBurst(float damageMultiplier, String explosion, int rows, int columns, EntityBoss boss, float interval, Vector2 spread, float speed, Sprite sprite) {
         this.boss = boss;
         this.burstInterval = interval;
         this.spread = spread;
@@ -203,6 +201,7 @@ class IntervalBurst {
         this.rows = rows;
         this.columns = columns;
         this.explosion = explosion;
+        this.damageMultiplier = damageMultiplier;
     }
 
     public void update() {
@@ -210,7 +209,7 @@ class IntervalBurst {
 
         if(this.burstElapsed >= this.burstInterval) {
             this.burstElapsed = 0;
-            this.boss.getMap().spawnEntity(this.boss.generateBurst(this.explosion, this.rows, this.columns, this.spread, this.speed, this.sprite));
+            this.boss.getMap().spawnEntity(this.boss.generateBurst(this.damageMultiplier, this.explosion, this.rows, this.columns, this.spread, this.speed, this.sprite));
 
             this.burstInterval = new Random().nextFloat() * 5;
 

@@ -38,6 +38,7 @@ public class UiOutro extends UiIntro {
         if(this.isFinished()) {
             if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 this.getHud().getStateManager().setActiveState("menu");
+                this.getHud().getStateManager().setPlaying(false);
                 this.getHud().getPlayer().getMap().reset(false);
                 this.map.setWon(false);
                 this.map.getHud().getStore().resetLocks();

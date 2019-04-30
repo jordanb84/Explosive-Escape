@@ -93,7 +93,7 @@ public class UiIntro extends UiContainer {
                 this.finished = true;
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
                 this.active = false;
 
                 try {

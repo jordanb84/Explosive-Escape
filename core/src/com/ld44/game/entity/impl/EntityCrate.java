@@ -9,6 +9,7 @@ import com.ld44.game.animation.Animation;
 import com.ld44.game.animation.DirectionalAnimation;
 import com.ld44.game.animation.Frame;
 import com.ld44.game.assets.Assets;
+import com.ld44.game.audio.SoundEffectType;
 import com.ld44.game.entity.Direction;
 import com.ld44.game.entity.Entity;
 import com.ld44.game.map.Map;
@@ -81,6 +82,7 @@ public class EntityCrate extends Entity {
 
             if (this.getBody().overlaps(player.getPolygonBody().getBoundingRectangle())) {
                 this.getMap().getHud().modifyCash(this.value);
+                SoundEffectType.playSound(SoundEffectType.Beep);
                 this.getMap().despawnEntity(this);
             }
         } catch(ArrayIndexOutOfBoundsException playerDead) {

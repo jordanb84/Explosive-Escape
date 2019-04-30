@@ -63,7 +63,7 @@ public class UiIntro extends UiContainer {
 
         this.active = true;
 
-        this.introText = ("We brought you here to loot and plunder as much currency as you're able before dying.\n" +
+        this.introText = ("Hello. I am your boss, The Walrus. We've brought you here to loot and plunder as much currency as you're able before dying.\n" +
                 "Your life exists for the sole purpose of generating profit for this organization. If you want your freedom, you'll have to " +
                 "destroy the boss vessel, worth thousands in gold. Good luck! [SPACE to Start]");
     }

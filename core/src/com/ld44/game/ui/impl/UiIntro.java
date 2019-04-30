@@ -93,7 +93,7 @@ public class UiIntro extends UiContainer {
                 this.finished = true;
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            /**if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
                 this.active = false;
 
                 try {
@@ -101,7 +101,7 @@ public class UiIntro extends UiContainer {
                 } catch (NullPointerException noHud) {
 
                 }
-            }
+            }**/
 
             super.update(camera);
         }
